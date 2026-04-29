@@ -44,13 +44,9 @@ jobs:
           ref     = f"{ar['surah']['englishName']} {ar['surah']['number']}:{ar['numberInSurah']}"
           print(f"Ref: {ref}")
 
-          # Truncate long English text for the image URL (Instagram limit)
-          english_short = english if len(english) < 200 else english[:197] + "..."
-
-          # 3. Card image URL
-          params = urllib.parse.urlencode({"t": "quran", "a": arabic, "e": english_short, "r": ref})
-          image_url = f"https://noorpath-iota.vercel.app/api/card?{params}"
-          print(f"Image URL length: {len(image_url)} chars")
+          # 3. Card image URL — short URL, API fetches verse itself
+          image_url = f"https://noorpath-iota.vercel.app/api/card?n={verse}"
+          print(f"Image URL: {image_url}")
 
           # 4. Caption
           caption = (

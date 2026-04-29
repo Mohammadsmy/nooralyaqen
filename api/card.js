@@ -31,10 +31,35 @@ function stripHarakat(text) {
 
 export default async function handler(req) {
   const { searchParams } = new URL(req.url)
-  const english = searchParams.get('e') || 'Indeed, with hardship will be ease.'
-  const arabic  = stripHarakat(searchParams.get('a') || '')
-  const ref     = searchParams.get('r') || 'Al-Inshirah · 94:6'
-  const type    = searchParams.get('t') || 'quran'
+
+  let english, arabic, ref, type
+
+  // If verse number is passed (?n=120), fetch from alquran.cloud directly
+  const verseNum = searchParams.get('n')
+  if (verseNum) {
+    try {
+      const apiUrl = `https://api.alquran.cloud/v1/ayah/${verseNum}/editions/ar.alafasy,en.asad`
+      const res  = await fetch(apiUrl)
+      const data = (await res.json()).data
+      const ar   = data.find(e => e.edition.identifier === 'ar.alafasy')
+      const en   = data.find(e => e.edition.identifier === 'en.asad')
+      arabic  = stripHarakat(ar.text)
+      english = en.text.length > 200 ? en.text.slice(0, 197) + '...' : en.text
+      ref     = `${ar.surah.englishName} ${ar.surah.number}:${ar.numberInSurah}`
+      type    = 'quran'
+    } catch(e) {
+      arabic  = ''
+      english = 'Indeed, with hardship will be ease.'
+      ref     = 'Al-Inshirah · 94:6'
+      type    = 'quran'
+    }
+  } else {
+    english = searchParams.get('e') || 'Indeed, with hardship will be ease.'
+    arabic  = stripHarakat(searchParams.get('a') || '')
+    ref     = searchParams.get('r') || 'Al-Inshirah · 94:6'
+    type    = searchParams.get('t') || 'quran'
+  }
+
   const label   = LABELS[type]   || LABELS.quran
   const arLabel = AR_LABEL[type] || AR_LABEL.quran
 
