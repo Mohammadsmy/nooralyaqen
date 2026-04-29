@@ -1,0 +1,113 @@
+name: Daily Instagram Post
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post daily Quran verse to Instagram
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          python3 << 'PYEOF'
+          import datetime, urllib.parse, urllib.request, urllib.error, json, time, os
+
+          ig_user = os.environ.get("IG_USER_ID", "")
+          token   = os.environ.get("IG_TOKEN", "")
+
+          # Check secrets
+          if not ig_user or not token:
+              print("ERROR: Secrets IG_USER_ID or IG_TOKEN are not set in GitHub!")
+              exit(1)
+          print(f"User ID: {ig_user[:8]}...")
+
+          # 1. Verse number based on day of year
+          day = datetime.datetime.now(datetime.timezone.utc).timetuple().tm_yday
+          verse = (day % 6236) + 1
+          print(f"Verse number: {verse}")
+
+          # 2. Fetch from alquran.cloud
+          url = f"https://api.alquran.cloud/v1/ayah/{verse}/editions/ar.alafasy,en.asad"
+          with urllib.request.urlopen(url) as r:
+              data = json.load(r)["data"]
+
+          ar = next(e for e in data if e["edition"]["identifier"] == "ar.alafasy")
+          en = next(e for e in data if e["edition"]["identifier"] == "en.asad")
+
+          arabic  = ar["text"]
+          english = en["text"]
+          ref     = f"{ar['surah']['englishName']} {ar['surah']['number']}:{ar['numberInSurah']}"
+          print(f"Ref: {ref}")
+
+          # Truncate long English text for the image URL (Instagram limit)
+          english_short = english if len(english) < 200 else english[:197] + "..."
+
+          # 3. Card image URL
+          params = urllib.parse.urlencode({"t": "quran", "a": arabic, "e": english_short, "r": ref})
+          image_url = f"https://noorpath-iota.vercel.app/api/card?{params}"
+          print(f"Image URL length: {len(image_url)} chars")
+
+          # 4. Caption
+          caption = (
+              f"{arabic}\n\n"
+              f'"{english}"\n\n'
+              f"— {ref}\n\n"
+              "\U0001f319 نور اليقين · Noor Al-Yaqeen\n"
+              "Your daily Islamic companion\n"
+              "\U0001f517 noorpath-iota.vercel.app\n\n"
+              "#QuranDaily #IslamicReminder #Quran #Islam #NoorAlYaqeen"
+          )
+
+          # 5. Create Instagram media container
+          print("Creating Instagram container...")
+          post_data = urllib.parse.urlencode({
+              "image_url":    image_url,
+              "caption":      caption,
+              "access_token": token,
+          }).encode()
+
+          try:
+              req = urllib.request.Request(
+                  f"https://graph.facebook.com/v18.0/{ig_user}/media",
+                  data=post_data, method="POST"
+              )
+              with urllib.request.urlopen(req) as r:
+                  container = json.load(r)
+          except urllib.error.HTTPError as e:
+              body = e.read().decode()
+              print(f"Instagram API error {e.code}: {body}")
+              exit(1)
+
+          creation_id = container["id"]
+          print(f"Container created: {creation_id}")
+
+          # 6. Wait
+          print("Waiting 20s for Instagram to process...")
+          time.sleep(20)
+
+          # 7. Publish
+          print("Publishing...")
+          pub_data = urllib.parse.urlencode({
+              "creation_id":  creation_id,
+              "access_token": token,
+          }).encode()
+
+          try:
+              req2 = urllib.request.Request(
+                  f"https://graph.facebook.com/v18.0/{ig_user}/media_publish",
+                  data=pub_data, method="POST"
+              )
+              with urllib.request.urlopen(req2) as r:
+                  result = json.load(r)
+          except urllib.error.HTTPError as e:
+              body = e.read().decode()
+              print(f"Publish error {e.code}: {body}")
+              exit(1)
+
+          print(f"SUCCESS! Post ID: {result.get('id')}")
+          PYEOF

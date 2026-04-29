@@ -1,0 +1,20 @@
+<svg viewBox="0 0 320 320" width="320" height="320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="l1bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#065f46" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="68" fill="url(#l1bg)" />
+  <g transform="translate(160 160)" fill="none" stroke="#047857" stroke-width="1.2" opacity="0.6">
+    <rect x="-110" y="-110" width="220" height="220" rx="6" />
+    <rect x="-110" y="-110" width="220" height="220" rx="6" transform="rotate(45)" />
+  </g>
+  <mask id="l1m">
+    <rect width="320" height="320" fill="white" />
+    <circle cx="190" cy="160" r="62" fill="black" />
+  </mask>
+  <circle cx="158" cy="160" r="74" fill="#fbbf24" mask="url(#l1m)" />
+  <polygon points="208,108 213,121 227,122 216,131 220,145 208,138 196,145 200,131 189,122 203,121" fill="#fcd34d" />
+  <text x="160" y="280" text-anchor="middle" fill="#fbbf24" font-size="14" font-family="Inter, sans-serif" letter-spacing="0.32em" font-weight="600">NOOR AL-YAQEEN</text>
+</svg>
