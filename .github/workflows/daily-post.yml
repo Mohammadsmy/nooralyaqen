@@ -31,7 +31,7 @@ jobs:
           print(f"Post index: {index}")
 
           # Short clean URL — no Arabic in URL, API handles it internally
-          image_url = f"https://noorpath-iota.vercel.app/api/card?i={index}"
+          image_url = f"https://nooralyaqen-iota.vercel.app/api/card?i={index}"
           print(f"Image URL: {image_url}")
 
           # Post labels for caption
@@ -56,7 +56,7 @@ jobs:
           caption = (
               f"{ar_label} | {ref}\n\n"
               f"{emoji} {ar_label}\n\n"
-              f"noorpath-iota.vercel.app\n\n"
+              f"nooralyaqen-iota.vercel.app\n\n"
               "#NoorAlYaqeen #نور_اليقين #QuranDaily #IslamicReminder #Islam #Quran #Hadith #Dhikr #Muslim #Faith"
           )
 

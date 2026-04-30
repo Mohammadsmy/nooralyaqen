@@ -120,7 +120,7 @@ export default function CardImage() {
           ✦  NOOR AL-YAQEEN  ✦
         </span>
         <span style={{ color: 'rgba(255,255,255,0.22)', fontSize: '11px', letterSpacing: '0.14em', fontFamily: 'sans-serif' }}>
-          noorpath-iota.vercel.app
+          nooralyaqen-iota.vercel.app
         </span>
       </div>
     </div>

@@ -111,7 +111,7 @@ export default async function handler(req) {
       ),
       h('div', { style: { position:'absolute', bottom:'40px', display:'flex', flexDirection:'column', alignItems:'center', gap:'4px' } },
         h('span', { style: { color: goldDim, fontSize:'13px', letterSpacing:'0.24em', fontWeight:700, display:'flex' } }, 'NOOR AL-YAQEEN'),
-        h('span', { style: { color:'rgba(255,255,255,0.22)', fontSize:'11px', letterSpacing:'0.14em', display:'flex' } }, 'noorpath-iota.vercel.app'),
+        h('span', { style: { color:'rgba(255,255,255,0.22)', fontSize:'11px', letterSpacing:'0.14em', display:'flex' } }, 'nooralyaqen-iota.vercel.app'),
       ),
     ),
     { width: 1080, height: 1080, fonts }
