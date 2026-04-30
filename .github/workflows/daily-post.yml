@@ -9,7 +9,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - name: Post daily Quran verse to Instagram
+      - name: Post daily content to Instagram
         env:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
@@ -20,46 +20,47 @@ jobs:
           ig_user = os.environ.get("IG_USER_ID", "")
           token   = os.environ.get("IG_TOKEN", "")
 
-          # Check secrets
           if not ig_user or not token:
-              print("ERROR: Secrets IG_USER_ID or IG_TOKEN are not set in GitHub!")
+              print("ERROR: Secrets not set!")
               exit(1)
           print(f"User ID: {ig_user[:8]}...")
 
-          # 1. Verse number based on day of year
-          day = datetime.datetime.now(datetime.timezone.utc).timetuple().tm_yday
-          verse = (day % 6236) + 1
-          print(f"Verse number: {verse}")
+          # Post index cycles through all 15 posts (Quran, Hadith, Dhikr)
+          day   = datetime.datetime.now(datetime.timezone.utc).timetuple().tm_yday
+          index = (day - 1) % 15
+          print(f"Post index: {index}")
 
-          # 2. Fetch from alquran.cloud
-          url = f"https://api.alquran.cloud/v1/ayah/{verse}/editions/ar.alafasy,en.asad"
-          with urllib.request.urlopen(url) as r:
-              data = json.load(r)["data"]
-
-          ar = next(e for e in data if e["edition"]["identifier"] == "ar.alafasy")
-          en = next(e for e in data if e["edition"]["identifier"] == "en.asad")
-
-          arabic  = ar["text"]
-          english = en["text"]
-          ref     = f"{ar['surah']['englishName']} {ar['surah']['number']}:{ar['numberInSurah']}"
-          print(f"Ref: {ref}")
-
-          # 3. Card image URL — short URL, API fetches verse itself
-          image_url = f"https://noorpath-iota.vercel.app/api/card?n={verse}"
+          # Short clean URL — no Arabic in URL, API handles it internally
+          image_url = f"https://noorpath-iota.vercel.app/api/card?i={index}"
           print(f"Image URL: {image_url}")
 
-          # 4. Caption
+          # Post labels for caption
+          POST_TYPES = [
+              'quran','quran','quran','quran','quran',
+              'hadith','hadith','hadith','hadith','hadith',
+              'dhikr','dhikr','dhikr','dhikr','dhikr',
+          ]
+          POST_REFS = [
+              'Al-Talaq 65:2-3','Ash-Sharh 94:5-6','Al-Baqarah 2:186','Yusuf 12:87','Al-Baqarah 2:255',
+              'Sahih al-Bukhari','Sahih Muslim','Sahih Muslim','Sunan al-Tirmidhi','Sahih al-Bukhari',
+              'Sahih al-Bukhari & Muslim','Sahih al-Bukhari','Sayyid al-Istighfar','Al-Imran 3:173','Sunan Abu Dawud',
+          ]
+          TYPE_EMOJI = {'quran':'\U0001f4d6', 'hadith':'\U0001f4dc', 'dhikr':'\U0001f4ff'}
+          TYPE_AR    = {'quran':'آية اليوم', 'hadith':'حديث اليوم', 'dhikr':'ذكر اليوم'}
+
+          ptype = POST_TYPES[index]
+          ref   = POST_REFS[index]
+          emoji = TYPE_EMOJI[ptype]
+          ar_label = TYPE_AR[ptype]
+
           caption = (
-              f"{arabic}\n\n"
-              f'"{english}"\n\n'
-              f"— {ref}\n\n"
-              "\U0001f319 نور اليقين · Noor Al-Yaqeen\n"
-              "Your daily Islamic companion\n"
-              "\U0001f517 noorpath-iota.vercel.app\n\n"
-              "#QuranDaily #IslamicReminder #Quran #Islam #NoorAlYaqeen"
+              f"{ar_label} | {ref}\n\n"
+              f"{emoji} {ar_label}\n\n"
+              f"noorpath-iota.vercel.app\n\n"
+              "#NoorAlYaqeen #نور_اليقين #QuranDaily #IslamicReminder #Islam #Quran #Hadith #Dhikr #Muslim #Faith"
           )
 
-          # 5. Create Instagram media container
+          # Create Instagram media container
           print("Creating Instagram container...")
           post_data = urllib.parse.urlencode({
               "image_url":    image_url,
@@ -82,11 +83,10 @@ jobs:
           creation_id = container["id"]
           print(f"Container created: {creation_id}")
 
-          # 6. Wait
-          print("Waiting 20s for Instagram to process...")
-          time.sleep(20)
+          print("Waiting 30s for Instagram to process...")
+          time.sleep(30)
 
-          # 7. Publish
+          # Publish
           print("Publishing...")
           pub_data = urllib.parse.urlencode({
               "creation_id":  creation_id,
