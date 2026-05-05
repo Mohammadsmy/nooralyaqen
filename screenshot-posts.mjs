@@ -12,7 +12,7 @@ const browser = await puppeteer.launch({
 const page    = await browser.newPage()
 await page.setViewport({ width: 1080, height: 1080, deviceScaleFactor: 1 })
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 45; i++) {
   const url = `https://nooralyaqen-iota.vercel.app/card-image?i=${i}`
   console.log(`Screenshotting post ${i}...  ${url}`)
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 })
@@ -27,4 +27,4 @@ for (let i = 0; i < 15; i++) {
 }
 
 await browser.close()
-console.log('\nAll 15 posts saved to Desktop/noor-posts/')
+console.log('\nAll 45 posts saved to Desktop/noor-posts/')

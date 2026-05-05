@@ -1,25 +1,64 @@
 // Full-screen 1080x1080 verse card for Instagram screenshot
-// Usage: /card-image?i=0..14  OR  /card-image?a=arabic&e=english&r=ref&t=type
+// Usage: /card-image?i=0..44  OR  /card-image?a=arabic&e=english&r=ref&t=type
 
 const LABELS   = { quran:'VERSE OF THE DAY', hadith:'HADITH OF THE DAY', dhikr:'DHIKR OF THE DAY', dua:'DUA OF THE DAY' }
 const AR_LABEL = { quran:'آية اليوم', hadith:'حديث اليوم', dhikr:'ذكر اليوم', dua:'دعاء اليوم' }
 
 const POSTS = [
-  { type:'quran',  ar:'وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ', en:'Whoever fears Allah, He will make a way out for him and provide from where he does not expect.', ref:'Al-Talaq 65:2-3' },
-  { type:'quran',  ar:'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا', en:'Indeed, with hardship comes ease. Indeed, with hardship comes ease.', ref:'Ash-Sharh 94:5-6' },
-  { type:'quran',  ar:'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ', en:'When My servants ask about Me — I am near. I respond to the caller when he calls.', ref:'Al-Baqarah 2:186' },
-  { type:'quran',  ar:'وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ ۖ إِنَّهُ لَا يَيْأَسُ مِن رَّوْحِ اللَّهِ إِلَّا الْقَوْمُ الْكَافِرُونَ', en:'Do not despair of the mercy of Allah. No one despairs of His mercy except the disbelieving people.', ref:'Yusuf 12:87' },
-  { type:'quran',  ar:'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ', en:'Allah — there is no deity except Him, the Ever-Living, the Sustainer. Neither drowsiness nor sleep overtakes Him.', ref:'Al-Baqarah 2:255' },
+  // ── Quran (original 5) ──────────────────────────────────────────────────────
+  { type:'quran',  ar:'وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا ۝ وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ ۚ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا', en:'Whoever fears Allah, He will make a way out for him and provide from where he does not expect. And whoever relies upon Allah — then He is sufficient for him.', ref:'Al-Talaq 65:2-3' },
+  { type:'quran',  ar:'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ فَإِذَا فَرَغْتَ فَانصَبْ ۝ وَإِلَىٰ رَبِّكَ فَارْغَب', en:'Indeed, with hardship comes ease. Indeed, with hardship comes ease. So when you are free, strive hard. And to your Lord turn your attention.', ref:'Ash-Sharh 94:5-8' },
+  { type:'quran',  ar:'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ ۖ فَلْيَسْتَجِيبُوا لِي وَلْيُؤْمِنُوا بِي لَعَلَّهُمْ يَرْشُدُونَ', en:'When My servants ask about Me — I am near. I respond to the caller when he calls. So let them respond to Me and believe in Me, that they may be guided.', ref:'Al-Baqarah 2:186' },
+  { type:'quran',  ar:'يَا بَنِيَّ اذْهَبُوا فَتَحَسَّسُوا مِن يُوسُفَ وَأَخِيهِ وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ ۖ إِنَّهُ لَا يَيْأَسُ مِن رَّوْحِ اللَّهِ إِلَّا الْقَوْمُ الْكَافِرُونَ', en:'O my sons, go and find out about Yusuf and his brother, and do not despair of relief from Allah. Indeed, no one despairs of relief from Allah except the disbelieving people.', ref:'Yusuf 12:87' },
+  { type:'quran',  ar:'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَهُوَ الْعَلِيُّ الْعَظِيمُ', en:'Allah — there is no deity except Him, the Ever-Living, the Sustainer. Neither drowsiness nor sleep overtakes Him. To Him belongs whatever is in the heavens and earth. His Kursi extends over the heavens and the earth, and their preservation tires Him not. He is the Most High, the Most Great.', ref:'Al-Baqarah 2:255 — Ayat al-Kursi' },
+  // ── Hadith (original 5) ─────────────────────────────────────────────────────
   { type:'hadith', ar:'إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى', en:'Actions are judged only by intentions, and each person will have only what they intended.', ref:'Sahih al-Bukhari' },
   { type:'hadith', ar:'الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ وَفِي كُلٍّ خَيْرٌ', en:'The strong believer is better and more beloved to Allah than the weak believer, though both have goodness.', ref:'Sahih Muslim' },
   { type:'hadith', ar:'مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ', en:'Whoever takes a path seeking knowledge, Allah will make easy for him the path to Paradise.', ref:'Sahih Muslim' },
   { type:'hadith', ar:'تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ صَدَقَةٌ', en:'Your smile in the face of your brother is charity.', ref:'Sunan al-Tirmidhi' },
   { type:'hadith', ar:'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ', en:'Whoever believes in Allah and the Last Day, let him speak good or remain silent.', ref:'Sahih al-Bukhari' },
+  // ── Dhikr (original 5) ──────────────────────────────────────────────────────
   { type:'dhikr',  ar:'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ۝ سُبْحَانَ اللَّهِ الْعَظِيمِ', en:'Glory be to Allah and His praise. Glory be to Allah the Magnificent.', ref:'Sahih al-Bukhari & Muslim' },
   { type:'dhikr',  ar:'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ', en:'None has the right to be worshipped but Allah alone. His is the dominion and all praise belongs to Him.', ref:'Sahih al-Bukhari' },
   { type:'dhikr',  ar:'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ', en:'O Allah, You are my Lord. There is no god but You. You created me and I am Your servant.', ref:'Sayyid al-Istighfar — Sahih al-Bukhari' },
   { type:'dhikr',  ar:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ', en:'Allah is sufficient for us, and He is the best Disposer of affairs.', ref:'Al-Imran 3:173' },
   { type:'dhikr',  ar:'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ', en:'O Allah, I ask You for forgiveness and wellbeing in this world and the next.', ref:'Sunan Abu Dawud' },
+
+  // ── Quran (new 15) ──────────────────────────────────────────────────────────
+  { type:'quran',  ar:'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ', en:'Remember Me, and I will remember you. Be grateful to Me and do not deny Me.', ref:'Al-Baqarah 2:152' },
+  { type:'quran',  ar:'يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', en:'O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient.', ref:'Al-Baqarah 2:153' },
+  { type:'quran',  ar:'إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ', en:'Indeed, to Allah we belong and to Him we shall return.', ref:'Al-Baqarah 2:156' },
+  { type:'quran',  ar:'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', en:'Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.', ref:'Al-Baqarah 2:201' },
+  { type:'quran',  ar:'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا اكْتَسَبَتْ', en:'Allah does not burden a soul beyond what it can bear. For it is what it has earned, and against it is what it has done wrong.', ref:'Al-Baqarah 2:286' },
+  { type:'quran',  ar:'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', en:'Verily, in the remembrance of Allah do hearts find rest.', ref:"Ar-Ra'd 13:28" },
+  { type:'quran',  ar:'وَإِذْ تَأَذَّنَ رَبُّكُمْ لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ', en:'If you are grateful, I will surely increase you in favor. But if you are ungrateful, indeed My punishment is severe.', ref:'Ibrahim 14:7' },
+  { type:'quran',  ar:'إِذْ أَوَى الْفِتْيَةُ إِلَى الْكَهْفِ فَقَالُوا رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا', en:'When the youths took refuge in the cave and said: Our Lord, grant us mercy from Yourself and guide us in our affair.', ref:'Al-Kahf 18:10' },
+  { type:'quran',  ar:'رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ', en:'My Lord, indeed I am in need of whatever good You would send down to me.', ref:'Al-Qasas 28:24' },
+  { type:'quran',  ar:'يَا أَيُّهَا الَّذِينَ آمَنُوا اذْكُرُوا اللَّهَ ذِكْرًا كَثِيرًا ۝ وَسَبِّحُوهُ بُكْرَةً وَأَصِيلًا', en:'O you who have believed, remember Allah with much remembrance, and exalt Him morning and afternoon.', ref:'Al-Ahzab 33:41-42' },
+  { type:'quran',  ar:'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا ۚ إِنَّهُ هُوَ الْغَفُورُ الرَّحِيمُ', en:'Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins. Indeed, it is He who is the Forgiving, the Merciful.', ref:'Az-Zumar 39:53' },
+  { type:'quran',  ar:'وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ', en:'And your Lord says: Call upon Me, and I will respond to you.', ref:'Ghafir 40:60' },
+  { type:'quran',  ar:'وَهُوَ الَّذِي يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ وَيَعْفُو عَنِ السَّيِّئَاتِ وَيَعْلَمُ مَا تَفْعَلُونَ', en:'And it is He who accepts repentance from His servants and pardons misdeeds, and He knows what you do.', ref:'Ash-Shura 42:25' },
+  { type:'quran',  ar:'مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ ۝ وَلَلْآخِرَةُ خَيْرٌ لَّكَ مِنَ الْأُولَىٰ ۝ وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ', en:'Your Lord has not forsaken you, nor has He detested you. And the Hereafter is better for you than the first. And your Lord is going to give you, and you will be satisfied.', ref:'Ad-Duha 93:3-5' },
+  { type:'quran',  ar:'أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ۝ وَوَضَعْنَا عَنكَ وِزْرَكَ ۝ الَّذِي أَنقَضَ ظَهْرَكَ ۝ وَرَفَعْنَا لَكَ ذِكْرَكَ', en:'Did We not expand your breast for you, and remove from you your burden which had weighed upon your back, and raise high your repute?', ref:'Al-Inshirah 94:1-4' },
+
+  // ── Hadith (new 10) ─────────────────────────────────────────────────────────
+  { type:'hadith', ar:'الدُّعَاءُ هُوَ الْعِبَادَةُ', en:"Du'a (supplication) is worship.", ref:'Sunan al-Tirmidhi' },
+  { type:'hadith', ar:'خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ', en:'The best of people are those most beneficial to people.', ref:"Al-Mu'jam al-Awsat — al-Tabarani" },
+  { type:'hadith', ar:'مَنْ لَا يَشْكُرُ النَّاسَ لَا يَشْكُرُ اللَّهَ', en:'Whoever does not thank people has not thanked Allah.', ref:'Sunan Abu Dawud' },
+  { type:'hadith', ar:'إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الْأَمْرِ كُلِّهِ', en:'Indeed, Allah is gentle and loves gentleness in all matters.', ref:'Sahih al-Bukhari' },
+  { type:'hadith', ar:'مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ', en:'Whoever fulfills the need of his brother, Allah fulfills his need.', ref:'Sahih al-Bukhari' },
+  { type:'hadith', ar:'اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا، وَخَالِقِ النَّاسَ بِخُلُقٍ حَسَنٍ', en:'Fear Allah wherever you are, follow a bad deed with a good one to erase it, and treat people with good character.', ref:'Sunan al-Tirmidhi' },
+  { type:'hadith', ar:'لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ', en:'The strong man is not the one who wrestles others. The strong man is the one who controls himself when he is angry.', ref:'Sahih al-Bukhari' },
+  { type:'hadith', ar:'إِنَّ مِنْ أَكْمَلِ الْمُؤْمِنِينَ إِيمَانًا أَحْسَنُهُمْ خُلُقًا', en:'The most complete of the believers in faith are those with the best character.', ref:'Sunan Abu Dawud' },
+  { type:'hadith', ar:'مَنْ أَحَبَّ أَنْ يُبْسَطَ لَهُ فِي رِزْقِهِ وَيُنْسَأَ لَهُ فِي أَثَرِهِ فَلْيَصِلْ رَحِمَهُ', en:'Whoever wishes to have his provision expanded and his life extended, let him maintain the ties of kinship.', ref:'Sahih al-Bukhari' },
+  { type:'hadith', ar:'لَا يَدْخُلُ الْجَنَّةَ مَنْ لَا يَأْمَنُ جَارُهُ بَوَائِقَهُ', en:'He will not enter Paradise whose neighbor is not safe from his evil.', ref:'Sahih Muslim' },
+
+  // ── Dhikr (new 5) ───────────────────────────────────────────────────────────
+  { type:'dhikr',  ar:'أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ', en:'I seek forgiveness from Allah the Magnificent, besides whom there is no god, the Ever-Living, the Sustainer, and I repent to Him.', ref:'Sunan al-Tirmidhi' },
+  { type:'dhikr',  ar:'اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَّجِيدٌ', en:'O Allah, send blessings upon Muhammad and upon the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim. You are Praiseworthy and Glorious.', ref:'Sahih al-Bukhari' },
+  { type:'dhikr',  ar:'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', en:'There is no power and no strength except with Allah.', ref:'Sahih al-Bukhari & Muslim' },
+  { type:'dhikr',  ar:'سُبْحَانَ اللَّهِ ۝ وَالْحَمْدُ لِلَّهِ ۝ وَلَا إِلَٰهَ إِلَّا اللَّهُ ۝ وَاللَّهُ أَكْبَرُ', en:'Glory be to Allah. Praise be to Allah. There is no god but Allah. Allah is the Greatest.', ref:'Sahih Muslim' },
+  { type:'dhikr',  ar:'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', en:'In the name of Allah, with whose name nothing can cause harm on earth or in the heavens. He is the All-Hearing, the All-Knowing.', ref:'Sunan Abu Dawud' },
 ]
 
 export default function CardImage() {
@@ -120,7 +159,7 @@ export default function CardImage() {
           ✦  NOOR AL-YAQEEN  ✦
         </span>
         <span style={{ color: 'rgba(255,255,255,0.22)', fontSize: '11px', letterSpacing: '0.14em', fontFamily: 'sans-serif' }}>
-          nooralyaqen-iota.vercel.app
+          nooralyaqeen.vercel.app
         </span>
       </div>
     </div>

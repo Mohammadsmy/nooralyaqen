@@ -25,13 +25,13 @@ jobs:
               exit(1)
           print(f"User ID: {ig_user[:8]}...")
 
-          # Post index cycles through all 15 posts (Quran, Hadith, Dhikr)
+          # Post index cycles through all 45 posts (Quran, Hadith, Dhikr)
           day   = datetime.datetime.now(datetime.timezone.utc).timetuple().tm_yday
-          index = (day - 1) % 15
+          index = (day - 1) % 45
           print(f"Post index: {index}")
 
           # Short clean URL — no Arabic in URL, API handles it internally
-          image_url = f"https://nooralyaqen-iota.vercel.app/api/card?i={index}"
+          image_url = f"https://nooralyaqeen.vercel.app/api/card?i={index}"
           print(f"Image URL: {image_url}")
 
           # Post labels for caption
@@ -39,11 +39,23 @@ jobs:
               'quran','quran','quran','quran','quran',
               'hadith','hadith','hadith','hadith','hadith',
               'dhikr','dhikr','dhikr','dhikr','dhikr',
+              'quran','quran','quran','quran','quran',
+              'quran','quran','quran','quran','quran',
+              'quran','quran','quran','quran','quran',
+              'hadith','hadith','hadith','hadith','hadith',
+              'hadith','hadith','hadith','hadith','hadith',
+              'dhikr','dhikr','dhikr','dhikr','dhikr',
           ]
           POST_REFS = [
-              'Al-Talaq 65:2-3','Ash-Sharh 94:5-6','Al-Baqarah 2:186','Yusuf 12:87','Al-Baqarah 2:255',
+              'Al-Talaq 65:2-3','Ash-Sharh 94:5-8','Al-Baqarah 2:186','Yusuf 12:87','Al-Baqarah 2:255',
               'Sahih al-Bukhari','Sahih Muslim','Sahih Muslim','Sunan al-Tirmidhi','Sahih al-Bukhari',
               'Sahih al-Bukhari & Muslim','Sahih al-Bukhari','Sayyid al-Istighfar','Al-Imran 3:173','Sunan Abu Dawud',
+              'Al-Baqarah 2:152','Al-Baqarah 2:153','Al-Baqarah 2:156','Al-Baqarah 2:201','Al-Baqarah 2:286',
+              "Ar-Ra'd 13:28",'Ibrahim 14:7','Al-Kahf 18:10','Al-Qasas 28:24','Al-Ahzab 33:41-42',
+              'Az-Zumar 39:53','Ghafir 40:60','Ash-Shura 42:25','Ad-Duha 93:3-5','Al-Inshirah 94:1-4',
+              'Sunan al-Tirmidhi',"Al-Mu'jam al-Awsat",'Sunan Abu Dawud','Sahih al-Bukhari','Sahih al-Bukhari',
+              'Sunan al-Tirmidhi','Sahih al-Bukhari','Sunan Abu Dawud','Sahih al-Bukhari','Sahih Muslim',
+              'Sunan al-Tirmidhi','Sahih al-Bukhari','Sahih al-Bukhari & Muslim','Sahih Muslim','Sunan Abu Dawud',
           ]
           TYPE_EMOJI = {'quran':'\U0001f4d6', 'hadith':'\U0001f4dc', 'dhikr':'\U0001f4ff'}
           TYPE_AR    = {'quran':'آية اليوم', 'hadith':'حديث اليوم', 'dhikr':'ذكر اليوم'}
@@ -56,7 +68,7 @@ jobs:
           caption = (
               f"{ar_label} | {ref}\n\n"
               f"{emoji} {ar_label}\n\n"
-              f"nooralyaqen-iota.vercel.app\n\n"
+              f"nooralyaqeen.vercel.app\n\n"
               "#NoorAlYaqeen #نور_اليقين #QuranDaily #IslamicReminder #Islam #Quran #Hadith #Dhikr #Muslim #Faith"
           )
 
