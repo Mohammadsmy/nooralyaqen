@@ -84,6 +84,18 @@ const POSTS = [
   { type:'dhikr',  ar:'لا حول ولا قوة الا بالله', en:'There is no power and no strength except with Allah.', ref:'Sahih al-Bukhari & Muslim' },
   { type:'dhikr',  ar:'سبحان الله والحمد لله ولا اله الا الله والله اكبر', en:'Glory be to Allah. Praise be to Allah. There is no god but Allah. Allah is the Greatest.', ref:'Sahih Muslim' },
   { type:'dhikr',  ar:'بسم الله الذي لا يضر مع اسمه شيء في الارض ولا في السماء وهو السميع العليم', en:'In the name of Allah, with whose name nothing can cause harm on earth or in the heavens. He is the All-Hearing, the All-Knowing.', ref:'Sunan Abu Dawud' },
+
+  // ── New 10 (posts 45–54) ────────────────────────────────────────────────────
+  { type:'quran',  ar:'ان الله مع الذين اتقوا والذين هم محسنون', en:'Indeed, Allah is with those who fear Him and those who are doers of good.', ref:'An-Nahl 16:128' },
+  { type:'quran',  ar:'تبارك الذي بيده الملك وهو على كل شيء قدير', en:'Blessed is He in whose hand is all sovereignty, and He is over all things competent.', ref:'Al-Mulk 67:1' },
+  { type:'quran',  ar:'يا ايها الناس انا خلقناكم من ذكر وانثى وجعلناكم شعوبا وقبائل لتعارفوا ان اكرمكم عند الله اتقاكم', en:'O mankind, We created you from male and female and made you peoples and tribes that you may know one another. Indeed, the most noble of you in the sight of Allah is the most righteous.', ref:'Al-Hujurat 49:13' },
+  { type:'quran',  ar:'وقضى ربك الا تعبدوا الا اياه وبالوالدين احسانا اما يبلغن عندك الكبر احدهما او كلاهما فلا تقل لهما اف', en:'Your Lord has decreed that you worship none but Him, and that you be kind to parents. If one or both reach old age, do not say to them a word of disrespect.', ref:'Al-Isra 17:23' },
+  { type:'quran',  ar:'وما خلقت الجن والانس الا ليعبدون', en:'I did not create jinn and mankind except to worship Me.', ref:'Adh-Dhariyat 51:56' },
+  { type:'hadith', ar:'عليكم بالصدق فان الصدق يهدي الى البر وان البر يهدي الى الجنة', en:'You must be truthful. Truthfulness leads to righteousness, and righteousness leads to Paradise.', ref:'Sahih al-Bukhari' },
+  { type:'hadith', ar:'ما من مسلم يغرس غرسا او يزرع زرعا فياكل منه طير او انسان او بهيمة الا كان له به صدقة', en:'No Muslim plants a tree or sows seeds and then a bird, human, or animal eats from it, except that it is counted as charity for him.', ref:'Sahih al-Bukhari' },
+  { type:'hadith', ar:'من صام رمضان إيمانا واحتسابا غفر له ما تقدم من ذنبه', en:'Whoever fasts Ramadan out of faith and seeking reward, his previous sins will be forgiven.', ref:'Sahih al-Bukhari' },
+  { type:'dua',   ar:'اللهم اني اعوذ بك من الهم والحزن والعجز والكسل والبخل والجبن وضلع الدين وغلبة الرجال', en:'O Allah, I seek refuge in You from worry and grief, from weakness and laziness, from miserliness and cowardice, from the burden of debt and the oppression of people.', ref:'Sahih al-Bukhari' },
+  { type:'dhikr', ar:'رضيت بالله ربا وبالاسلام دينا وبمحمد صلى الله عليه وسلم نبيا', en:'I am pleased with Allah as my Lord, Islam as my religion, and Muhammad ﷺ as my Prophet.', ref:'Sunan Abu Dawud' },
 ]
 
 export default async function handler(req) {
