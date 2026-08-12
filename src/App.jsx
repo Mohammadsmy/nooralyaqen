@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
 import Footer from './components/Footer'
@@ -27,7 +28,14 @@ export default function App() {
 
   // Card image page — no nav/footer, full screen
   const isCardImage = window.location.pathname === '/card-image'
-  if (isCardImage) return <BrowserRouter><Routes><Route path="/card-image" element={<CardImage />} /></Routes></BrowserRouter>
+  if (isCardImage) return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/card-image" element={<CardImage />} />
+      </Routes>
+      <Analytics />
+    </BrowserRouter>
+  )
 
   return (
     <BrowserRouter>
@@ -49,6 +57,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
+      <Analytics />
     </BrowserRouter>
   )
 }
