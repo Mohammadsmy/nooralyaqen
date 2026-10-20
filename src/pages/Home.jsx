@@ -135,7 +135,7 @@ export default function Home() {
           </h2>
           {verse ? (
             <>
-              <p lang="ar" dir="rtl" className="mt-8 font-arabic text-3xl sm:text-4xl leading-[2] text-stone-900 dark:text-stone-50">
+              <p lang="ar" dir="rtl" className="mt-8 quran-text text-3xl sm:text-4xl text-stone-900 dark:text-stone-50">
                 {verse.arabic.text}
               </p>
               <p className="mt-6 text-lg leading-relaxed text-stone-800 dark:text-stone-200">{verse.english.text}</p>
@@ -187,7 +187,7 @@ export default function Home() {
           </div>
           <blockquote className="lg:col-span-3">
             <p className="text-sm font-semibold text-gold-200">{label.en} · <span lang="ar" dir="rtl" className="font-arabic">{label.ar}</span></p>
-            <p lang="ar" dir="rtl" className="mt-4 font-arabic text-3xl leading-[1.9]">{companion.quote}</p>
+            <p lang="ar" dir="rtl" className="mt-4 font-arabic arabic-text text-3xl">{companion.quote}</p>
             <p className="mt-4 text-lg leading-relaxed text-stone-200">{companion.quoteEn}</p>
             <footer className="mt-4 text-stone-300">— {companion.sourceEn}</footer>
           </blockquote>

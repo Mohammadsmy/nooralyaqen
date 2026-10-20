@@ -24,6 +24,7 @@ export default {
       minHeight: { 12: '3rem' },
       fontFamily: {
         arabic: ['Amiri', 'serif'],
+        quran: ['"Amiri Quran"', 'Amiri', 'serif'],
         sans: ['Inter', 'sans-serif'],
       },
       animation: {

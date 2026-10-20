@@ -10,7 +10,7 @@ function Quote({ s, size = 'lg' }) {
       <p className="text-sm font-semibold text-emerald-800 dark:text-gold-200">
         {label.en} · <span lang="ar" dir="rtl" className="font-arabic">{label.ar}</span>
       </p>
-      <p lang="ar" dir="rtl" className={`mt-3 font-arabic leading-[1.9] text-stone-900 dark:text-stone-50 ${size === 'lg' ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
+      <p lang="ar" dir="rtl" className={`mt-3 font-arabic arabic-text text-stone-900 dark:text-stone-50 ${size === 'lg' ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
         {s.quote}
       </p>
       <p className={`mt-3 leading-relaxed text-stone-800 dark:text-stone-200 ${size === 'lg' ? 'text-lg' : 'text-base'}`}>{s.quoteEn}</p>
