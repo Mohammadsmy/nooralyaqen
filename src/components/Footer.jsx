@@ -1,77 +1,40 @@
 import { Link } from 'react-router-dom'
+import { NAV_LINKS } from './Navbar'
 
 export default function Footer() {
   return (
-    <footer className="bg-emerald-900 dark:bg-black/40 text-stone-300 mt-auto">
-      <div className="geo-pattern">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <img src="/logo.svg" alt="Noor Al-Yaqeen" className="w-10 h-10 rounded-xl shadow-md" />
-                <div className="leading-tight">
-                  <p className="font-bold text-base text-white font-arabic">نور اليقين</p>
-                  <p className="text-xs text-gold-400 font-semibold tracking-wide">Noor Al-Yaqeen</p>
-                </div>
-              </div>
-              <p className="text-sm text-stone-400 leading-relaxed">
-                Your daily Islamic companion for Quran, prayer times, Qibla & dhikr.
-              </p>
-              <p className="text-xs text-stone-500 font-arabic mt-1 leading-relaxed">
-                رفيقك الإسلامي اليومي للقرآن وأوقات الصلاة والقبلة والذكر.
-              </p>
-              <p className="mt-3 text-xl font-arabic text-gold-400">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-            </div>
+    <footer className="bg-emerald-950 text-stone-200 dark:bg-black/30 mt-auto">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-10">
+        <p lang="ar" dir="rtl" className="font-arabic text-gold-200 text-5xl sm:text-7xl leading-tight text-right">نور اليقين</p>
+        <p className="mt-2 text-lg text-stone-200 text-right">Noor Al-Yaqeen — the Quran, prayer times, Qibla and dhikr, in Arabic and English.</p>
 
-            {/* Links */}
-            <div>
-              <h3 className="font-semibold text-white mb-1">Pages</h3>
-              <p className="text-xs text-gold-500 font-arabic mb-3">الصفحات</p>
-              <ul className="space-y-2 text-sm">
-                {[
-                  ['/quran',        '📖 القرآن',        'Quran'],
-                  ['/prayer-times', '🕌 أوقات الصلاة',  'Prayer Times'],
-                  ['/qibla',        '🧭 القبلة',         'Qibla'],
-                  ['/tasbeeh',      '📿 التسبيح',        'Tasbeeh'],
-                  ['/dua',          '🤲 أذكار',          'Adhkar'],
-                ].map(([to, ar, en]) => (
-                  <li key={to}>
-                    <Link to={to} className="hover:text-gold-300 transition-colors flex items-center justify-between">
-                      <span className="font-arabic">{ar}</span>
-                      <span className="text-xs text-stone-500 hover:text-gold-400 transition-colors">{en}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="mt-12 grid gap-10 sm:grid-cols-2">
+          <nav aria-label="Footer">
+            <h2 className="text-base font-semibold text-white">Pages</h2>
+            <ul className="mt-3 grid grid-cols-2 gap-x-6">
+              {NAV_LINKS.slice(1).map(({ to, en, ar }) => (
+                <li key={to}>
+                  <Link to={to} className="flex items-baseline justify-between gap-3 min-h-11 py-2 text-stone-200 hover:text-gold-200">
+                    <span>{en}</span>
+                    <span lang="ar" dir="rtl" className="font-arabic text-stone-300">{ar}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            {/* Credits */}
-            <div>
-              <h3 className="font-semibold text-white mb-1">Data Sources</h3>
-              <p className="text-xs text-gold-500 font-arabic mb-3">مصادر البيانات</p>
-              <ul className="space-y-2 text-sm text-stone-400">
-                <li>
-                  <span>Quran text & audio: AlQuran.cloud</span>
-                  <p className="text-xs font-arabic text-stone-500">نص القرآن والصوت</p>
-                </li>
-                <li>
-                  <span>Prayer times: Aladhan.com</span>
-                  <p className="text-xs font-arabic text-stone-500">أوقات الصلاة</p>
-                </li>
-                <li>
-                  <span>Qibla direction: Aladhan.com</span>
-                  <p className="text-xs font-arabic text-stone-500">اتجاه القبلة</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-emerald-800 text-center text-sm text-stone-500">
-            <p>Made with ♥ for the Ummah · <span className="font-arabic">صُنع بـ ♥ للأمة الإسلامية</span></p>
-            <p className="mt-1">نور اليقين · Noor Al-Yaqeen © {new Date().getFullYear()}</p>
+          <div>
+            <h2 className="text-base font-semibold text-white">Sources</h2>
+            <ul className="mt-3 space-y-2 text-stone-300">
+              <li>Quran text, translation (Sahih International) and recitation: <a className="underline hover:text-gold-200" href="https://alquran.cloud" rel="noopener">AlQuran.cloud</a></li>
+              <li>Prayer times and Qibla: <a className="underline hover:text-gold-200" href="https://aladhan.com" rel="noopener">Aladhan.com</a></li>
+              <li>City search: <a className="underline hover:text-gold-200" href="https://open-meteo.com" rel="noopener">Open-Meteo</a></li>
+              <li>Folio from the Blue Qur’an, 9th–10th century: <a className="underline hover:text-gold-200" href="https://www.metmuseum.org/art/collection/search/454662" rel="noopener">The Metropolitan Museum of Art</a>, public domain</li>
+            </ul>
           </div>
         </div>
+
+        <p className="mt-12 text-sm text-stone-400">© {new Date().getFullYear()} Noor Al-Yaqeen · <span lang="ar" dir="rtl" className="font-arabic">نور اليقين</span></p>
       </div>
     </footer>
   )

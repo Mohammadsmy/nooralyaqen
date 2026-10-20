@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
@@ -12,6 +12,8 @@ import Dua from './pages/Dua'
 import Logos from './pages/Logos'
 import CardImage from './pages/CardImage'
 import Sahaba from './pages/Sahaba'
+import NotFound from './pages/NotFound'
+import { PlaceProvider } from './hooks/usePlace'
 
 export default function App() {
   const [dark, setDark] = useState(() => {
@@ -31,10 +33,11 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <PlaceProvider>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Navbar dark={dark} setDark={setDark} />
-        <main className="flex-1 page-enter">
+        <main id="main" className="flex-1 page-enter">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/quran" element={<Quran />} />
@@ -42,13 +45,16 @@ export default function App() {
             <Route path="/prayer-times" element={<PrayerTimes />} />
             <Route path="/qibla" element={<Qibla />} />
             <Route path="/tasbeeh" element={<Tasbeeh />} />
-            <Route path="/dua" element={<Dua />} />
+            <Route path="/adhkar" element={<Dua />} />
+            <Route path="/dua" element={<Navigate to="/adhkar" replace />} />
             <Route path="/logos" element={<Logos />} />
             <Route path="/sahaba" element={<Sahaba />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
       </div>
+      </PlaceProvider>
     </BrowserRouter>
   )
 }

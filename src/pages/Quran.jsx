@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { quranApi } from '../utils/api'
 import { ls } from '../utils/helpers'
+import { usePageTitle } from '../hooks/usePageTitle'
+import Icon from '../components/Icon'
 
 export default function Quran() {
   const { surahId } = useParams()
@@ -20,6 +22,7 @@ export default function Quran() {
   const activeSurahId = surahId ? Number(surahId) : 1
 
   useEffect(() => { surahRef.current = surah }, [surah])
+  usePageTitle(surah ? `${surah.arabic.englishName} (${surah.arabic.number})` : 'Quran', 'Read and listen to the Quran: all 114 surahs with transliteration and translation.')
 
   // Load surah list
   useEffect(() => {
@@ -91,7 +94,7 @@ export default function Quran() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-hidden animate-fade-in">
+    <div className="flex h-[calc(100vh-4rem)] overflow-hidden">
       {/* Sidebar */}
       <aside className={`
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -101,18 +104,20 @@ export default function Quran() {
       `}>
         <div className="p-4 border-b border-stone-200 dark:border-emerald-800">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-emerald-800 dark:text-gold-300">Surahs</h2>
+            <h2 className="font-bold text-lg text-emerald-900 dark:text-gold-200">Surahs</h2>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="md:hidden p-1 rounded-lg text-stone-400 hover:text-stone-600"
-            >✕</button>
+              className="md:hidden btn-icon"
+              aria-label="Close the surah list"
+            ><Icon name="close" /></button>
           </div>
           <input
             type="text"
-            placeholder="Search surah..."
+            placeholder="Search by name or number"
+            aria-label="Search surahs"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl border border-stone-200 dark:border-emerald-700 bg-stone-50 dark:bg-emerald-900 text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full h-11 px-3 text-base rounded-lg border border-stone-300 dark:border-emerald-700 bg-stone-50 dark:bg-emerald-900 text-stone-900 dark:text-stone-100"
           />
         </div>
 
@@ -129,18 +134,19 @@ export default function Quran() {
                 <li key={s.number}>
                   <button
                     onClick={() => { navigate(`/quran/${s.number}`); setSidebarOpen(false) }}
-                    className={`w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-emerald-50 dark:hover:bg-emerald-800/40 transition-colors ${
-                      activeSurahId === s.number ? 'bg-emerald-50 dark:bg-emerald-800/60 border-r-2 border-emerald-600' : ''
+                    aria-current={activeSurahId === s.number ? 'page' : undefined}
+                    className={`w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-stone-100 dark:hover:bg-emerald-900 transition-colors ${
+                      activeSurahId === s.number ? 'bg-emerald-50 dark:bg-emerald-900' : ''
                     }`}
                   >
-                    <span className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-gold-300 text-xs font-bold flex items-center justify-center flex-shrink-0">
+                    <span className="w-8 text-right text-sm tabular-nums text-stone-600 dark:text-stone-300 flex-shrink-0">
                       {s.number}
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">{s.englishName}</p>
-                      <p className="text-xs text-stone-400 dark:text-stone-500">{s.numberOfAyahs} verses · {s.revelationType}</p>
+                      <p className="text-base font-medium text-stone-900 dark:text-stone-100 truncate">{s.englishName}</p>
+                      <p className="text-sm text-stone-600 dark:text-stone-300">{s.numberOfAyahs} verses · {s.revelationType}</p>
                     </div>
-                    <span className="ml-auto font-arabic text-sm text-emerald-700 dark:text-gold-400">{s.name}</span>
+                    <span lang="ar" dir="rtl" className="ml-auto font-arabic text-lg text-emerald-800 dark:text-gold-200">{s.name}</span>
                   </button>
                 </li>
               ))}
@@ -163,12 +169,13 @@ export default function Quran() {
         <div className="md:hidden sticky top-0 z-10 bg-white dark:bg-emerald-950 border-b border-stone-200 dark:border-emerald-800 px-4 py-3 flex items-center gap-3">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-lg bg-stone-100 dark:bg-emerald-800 text-stone-600 dark:text-stone-300"
+            className="btn-secondary"
+            aria-expanded={sidebarOpen}
           >
-            ☰
+            Surahs
           </button>
-          <span className="font-semibold text-emerald-800 dark:text-gold-300">
-            {surah ? `${surah.arabic.englishName} · ${surah.arabic.name}` : 'Quran'}
+          <span className="font-semibold text-emerald-900 dark:text-gold-200 truncate">
+            {surah ? surah.arabic.englishName : 'Quran'}
           </span>
         </div>
 
@@ -182,18 +189,19 @@ export default function Quran() {
             ))}
           </div>
         ) : surah ? (
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 animate-slide-up">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
             {/* Surah header */}
             <div className="text-center mb-10 pb-8 border-b border-stone-200 dark:border-emerald-800">
-              <h1 className="font-bold text-2xl text-emerald-800 dark:text-gold-300 mb-1">
-                {surah.arabic.number}. {surah.arabic.englishName}
+              <h1 className="page-title mb-1">
+                {surah.arabic.englishName}
               </h1>
-              <p className="text-stone-500 dark:text-stone-400 text-sm mb-4">
+              <p className="text-stone-700 dark:text-stone-300 text-base mb-4">
+                Surah {surah.arabic.number} · 
                 {surah.arabic.englishNameTranslation} · {surah.arabic.numberOfAyahs} verses · {surah.arabic.revelationType}
               </p>
-              <p className="font-arabic text-3xl text-emerald-700 dark:text-gold-400">{surah.arabic.name}</p>
+              <p lang="ar" dir="rtl" className="font-arabic text-4xl text-emerald-800 dark:text-gold-200">{surah.arabic.name}</p>
               {activeSurahId !== 1 && activeSurahId !== 9 && (
-                <p className="mt-4 font-arabic text-xl text-stone-500 dark:text-stone-400">
+                <p lang="ar" dir="rtl" className="mt-6 font-arabic text-2xl text-stone-800 dark:text-stone-200">
                   بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
                 </p>
               )}
@@ -210,56 +218,49 @@ export default function Quran() {
                   <div
                     key={ayah.number}
                     id={`verse-${ayah.numberInSurah}`}
-                    className={`card border-l-4 ${bmked ? 'border-l-gold-400' : 'border-l-transparent'} hover:border-l-emerald-500 transition-all`}
+                    className={`card ${bmked ? 'bg-gold-50 dark:bg-emerald-900' : ''}`}
                   >
                     {/* Verse number + controls */}
                     <div className="flex items-center justify-between mb-3">
-                      <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-gold-300 text-xs font-bold flex items-center justify-center">
+                      <div className="text-sm tabular-nums text-stone-600 dark:text-stone-300" aria-label={`Verse ${ayah.numberInSurah}`}>
                         {ayah.numberInSurah}
                       </div>
                       <div className="flex items-center gap-2">
                         {/* Play button */}
                         <button
                           onClick={() => playVerse(ayah.audio, ayah.numberInSurah)}
-                          className={`p-2 rounded-xl text-sm transition-colors ${
-                            playingVerse === ayah.numberInSurah
-                              ? 'bg-emerald-600 text-white'
-                              : 'bg-stone-100 dark:bg-emerald-800 text-stone-600 dark:text-stone-300 hover:bg-emerald-100 dark:hover:bg-emerald-700'
-                          }`}
-                          title="Play recitation"
+                          className={`btn-icon ${playingVerse === ayah.numberInSurah ? 'bg-emerald-800 text-white hover:bg-emerald-700 dark:bg-gold-200 dark:text-emerald-950' : ''}`}
+                          aria-label={playingVerse === ayah.numberInSurah ? `Pause verse ${ayah.numberInSurah}` : `Play verse ${ayah.numberInSurah}`}
                         >
-                          {playingVerse === ayah.numberInSurah ? '⏸' : '▶'}
+                          <Icon name={playingVerse === ayah.numberInSurah ? 'pause' : 'play'} />
                         </button>
                         {/* Bookmark */}
                         <button
                           onClick={() => toggleBookmark(surah.arabic.number, ayah.numberInSurah)}
-                          className={`p-2 rounded-xl text-sm transition-colors ${
-                            bmked
-                              ? 'bg-gold-100 dark:bg-gold-900/30 text-gold-600 dark:text-gold-400'
-                              : 'bg-stone-100 dark:bg-emerald-800 text-stone-400 hover:text-gold-500'
-                          }`}
-                          title={bmked ? 'Remove bookmark' : 'Bookmark verse'}
+                          className={`btn-icon ${bmked ? 'text-gold-700 dark:text-gold-200' : ''}`}
+                          aria-pressed={bmked}
+                          aria-label={bmked ? `Remove bookmark from verse ${ayah.numberInSurah}` : `Bookmark verse ${ayah.numberInSurah}`}
                         >
-                          {bmked ? '🔖' : '🏷'}
+                          <Icon name="bookmark" filled={bmked} />
                         </button>
                       </div>
                     </div>
 
                     {/* Arabic text */}
-                    <p className="font-arabic text-2xl sm:text-3xl text-right leading-loose text-stone-800 dark:text-stone-100 arabic mb-3">
+                    <p lang="ar" className="font-arabic text-3xl sm:text-4xl text-right leading-[2] text-stone-900 dark:text-stone-50 arabic mb-4">
                       {ayah.text}
                     </p>
 
                     {/* Transliteration */}
                     {trAyah && (
-                      <p className="text-sm text-stone-400 dark:text-stone-500 italic mb-2 leading-relaxed">
+                      <p className="text-base text-stone-600 dark:text-stone-300 italic mb-2 leading-relaxed">
                         {trAyah.text}
                       </p>
                     )}
 
                     {/* Translation */}
                     {enAyah && (
-                      <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+                      <p className="text-stone-900 dark:text-stone-100 text-lg leading-relaxed">
                         {enAyah.text}
                       </p>
                     )}

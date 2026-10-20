@@ -1,0 +1,241 @@
+// Companions of the Prophet ﷺ.
+// kind: 'own'   → the companion's own words
+//       'about' → the Prophet ﷺ speaking about (or to) the companion
+// Every quote carries its source. Verify with a scholar before changing any text.
+
+export const SAHABA = [
+  {
+    "id": 1,
+    "name": "أبو بكر الصديق",
+    "nameEn": "Abu Bakr al-Siddiq",
+    "title": "الصدّيق · الخليفة الأول",
+    "titleEn": "The Truthful · First Caliph",
+    "bio": "أول من أسلم من الرجال الأحرار، وأول الخلفاء الراشدين. أنفق كل ماله في سبيل الله، وكان رفيق النبي ﷺ في الهجرة.",
+    "bioEn": "First free adult male to embrace Islam and first of the Rightly Guided Caliphs. He spent all his wealth for Islam and was the Prophet's ﷺ companion in migration.",
+    "kind": "own",
+    "female": false,
+    "quote": "مَن كان يعبدُ محمدًا فإنّ محمدًا قد مات، ومَن كان يعبدُ اللهَ فإنّ اللهَ حيٌّ لا يموت.",
+    "quoteEn": "Whoever worshipped Muhammad, Muhammad has died; and whoever worships Allah, Allah is Ever-Living and does not die.",
+    "source": "صحيح البخاري ٣٦٦٨",
+    "sourceEn": "Sahih al-Bukhari 3668"
+  },
+  {
+    "id": 2,
+    "name": "عمر بن الخطاب",
+    "nameEn": "Umar ibn al-Khattab",
+    "title": "الفاروق · الخليفة الثاني",
+    "titleEn": "Al-Faruq · Second Caliph",
+    "bio": "ثاني الخلفاء الراشدين، فتحت في عهده مصر والشام وفارس والعراق. عُرف بعدله الشديد حتى مع غير المسلمين.",
+    "bioEn": "Second Caliph under whom Egypt, Syria, Persia and Iraq were opened to Islam. Known for his extraordinary justice even with non-Muslims.",
+    "kind": "own",
+    "female": false,
+    "quote": "إنّا كنّا أذلَّ قومٍ فأعزّنا اللهُ بالإسلام، فمهما نطلبِ العزّةَ بغير ما أعزّنا اللهُ به أذلّنا الله.",
+    "quoteEn": "We were the lowliest of people and Allah honoured us with Islam. If we seek honour in anything other than that with which Allah honoured us, Allah will humble us.",
+    "source": "المستدرك للحاكم",
+    "sourceEn": "Al-Hakim, al-Mustadrak"
+  },
+  {
+    "id": 3,
+    "name": "عثمان بن عفان",
+    "nameEn": "Uthman ibn Affan",
+    "title": "ذو النورين · الخليفة الثالث",
+    "titleEn": "Dhul-Nurayn · Third Caliph",
+    "bio": "زوّج النبي ﷺ ابنتيه، وجمّع القرآن الكريم في مصحف واحد، وجهّز جيش العسرة بأمواله. لُقّب بذي النورين.",
+    "bioEn": "Married two of the Prophet's ﷺ daughters, compiled the Quran into one standard copy, and funded the army with his own wealth.",
+    "kind": "about",
+    "female": false,
+    "quote": "ما ضرَّ عثمانَ ما عَمِلَ بعدَ اليوم.",
+    "quoteEn": "Nothing Uthman does after today will harm him.",
+    "source": "جامع الترمذي ٣٧٠١ — لمّا جهّز جيش العسرة",
+    "sourceEn": "Jami' al-Tirmidhi 3701 — after he equipped the army of Tabuk"
+  },
+  {
+    "id": 4,
+    "name": "علي بن أبي طالب",
+    "nameEn": "Ali ibn Abi Talib",
+    "title": "أمير المؤمنين · الخليفة الرابع",
+    "titleEn": "Commander of the Faithful · Fourth Caliph",
+    "bio": "ابن عم النبي ﷺ وزوج فاطمة الزهراء، رابع الخلفاء الراشدين. من أعلم الصحابة بالقضاء والفقه.",
+    "bioEn": "Cousin of the Prophet ﷺ and husband of Fatimah al-Zahra. Fourth Caliph and one of the most knowledgeable companions in jurisprudence.",
+    "kind": "own",
+    "female": false,
+    "quote": "ارتحلتِ الدنيا مُدبرةً، وارتحلتِ الآخرةُ مُقبلةً، ولكلِّ واحدةٍ منهما بنون، فكونوا من أبناء الآخرة ولا تكونوا من أبناء الدنيا، فإنّ اليومَ عملٌ ولا حساب، وغدًا حسابٌ ولا عمل.",
+    "quoteEn": "This world is departing and the Hereafter is approaching, and each has its children. Be children of the Hereafter, not of this world: today there is action and no reckoning, and tomorrow there is reckoning and no action.",
+    "source": "صحيح البخاري، كتاب الرقاق",
+    "sourceEn": "Sahih al-Bukhari, Book of Softening of Hearts"
+  },
+  {
+    "id": 5,
+    "name": "خالد بن الوليد",
+    "nameEn": "Khalid ibn al-Walid",
+    "title": "سيف الله المسلول",
+    "titleEn": "Sword of Allah",
+    "bio": "قائد عسكري لم يُهزم في حياته، لقّبه النبي ﷺ بـ\"سيف الله المسلول\". قاد الفتوحات في فارس والشام.",
+    "bioEn": "Undefeated military commander nicknamed \"Sword of Allah\" by the Prophet ﷺ. Led conquests in Persia and Syria.",
+    "kind": "about",
+    "female": false,
+    "quote": "أخذ الرايةَ سيفٌ من سيوفِ الله، حتى فتحَ اللهُ عليهم.",
+    "quoteEn": "Then the banner was taken by one of the swords of Allah, until Allah granted them victory.",
+    "source": "صحيح البخاري ٣٧٥٧ — يوم مؤتة",
+    "sourceEn": "Sahih al-Bukhari 3757 — the day of Mu'tah"
+  },
+  {
+    "id": 6,
+    "name": "أبو هريرة",
+    "nameEn": "Abu Hurairah",
+    "title": "راوي الحديث الأكبر",
+    "titleEn": "Greatest Hadith Narrator",
+    "bio": "أكثر الصحابة رواية للحديث النبوي، روى أكثر من 5000 حديث. كرّس حياته لحفظ سنة النبي ﷺ ونشرها.",
+    "bioEn": "Narrated more hadiths than any other companion — over 5,000 narrations. Dedicated his life to preserving the Prophet's ﷺ Sunnah.",
+    "kind": "own",
+    "female": false,
+    "quote": "إنّ الناسَ يقولون: أكثرَ أبو هريرة، ولولا آيتانِ في كتابِ الله ما حدّثتُ حديثًا.",
+    "quoteEn": "People say Abu Hurairah narrates too much. Were it not for two verses in the Book of Allah, I would not have narrated a single hadith.",
+    "source": "صحيح البخاري ١١٨",
+    "sourceEn": "Sahih al-Bukhari 118"
+  },
+  {
+    "id": 7,
+    "name": "عبدالله بن مسعود",
+    "nameEn": "Abdullah ibn Masud",
+    "title": "حامل نعل النبي · حبر القرآن",
+    "titleEn": "Bearer of the Prophet's Sandals",
+    "bio": "من أعلم الصحابة بالقرآن الكريم وتفسيره. كان من أقرب المقربين للنبي ﷺ وصاحب سره.",
+    "bioEn": "Among the most knowledgeable companions in Quran and its interpretation. One of the closest companions to the Prophet ﷺ.",
+    "kind": "own",
+    "female": false,
+    "quote": "واللهِ الذي لا إلهَ غيرُه، ما أُنزلتْ سورةٌ من كتابِ الله إلا أنا أعلمُ أين أُنزلت.",
+    "quoteEn": "By Allah, besides whom there is no god, no surah of the Book of Allah was revealed except that I know where it was revealed.",
+    "source": "صحيح البخاري ٥٠٠٢",
+    "sourceEn": "Sahih al-Bukhari 5002"
+  },
+  {
+    "id": 8,
+    "name": "بلال بن رباح",
+    "nameEn": "Bilal ibn Rabah",
+    "title": "أول مؤذن في الإسلام",
+    "titleEn": "First Muezzin in Islam",
+    "bio": "عبد حبشي صبر على أشد العذاب في سبيل الله وهو يردد \"أحد أحد\". اشتراه أبو بكر ؓ وأعتقه. كان أول من رفع الأذان في الإسلام.",
+    "bioEn": "An Ethiopian slave who endured the harshest torture repeating \"One, One.\" Abu Bakr ؓ bought and freed him. He became the first to call the adhan in Islam.",
+    "kind": "own",
+    "female": false,
+    "quote": "أحدٌ، أحد.",
+    "quoteEn": "One, One.",
+    "source": "سيرة ابن هشام — وهو يُعذَّب في رمضاء مكة",
+    "sourceEn": "Sirah of Ibn Hisham — while being tortured on the scorching sand of Makkah"
+  },
+  {
+    "id": 9,
+    "name": "معاذ بن جبل",
+    "nameEn": "Mu'adh ibn Jabal",
+    "title": "أعلم الأمة بالحلال والحرام",
+    "titleEn": "Most Knowledgeable in Halal & Haram",
+    "bio": "قال عنه النبي ﷺ: \"أعلم أمتي بالحلال والحرام معاذ بن جبل\". أرسله النبي ﷺ قاضياً ومعلماً إلى اليمن.",
+    "bioEn": "The Prophet ﷺ said: \"The most knowledgeable of my nation in halal and haram is Mu'adh ibn Jabal.\" He was sent as a judge and teacher to Yemen.",
+    "kind": "about",
+    "female": false,
+    "quote": "وأعلمُهم بالحلالِ والحرامِ معاذُ بنُ جبل.",
+    "quoteEn": "And the most knowledgeable of them about the lawful and the unlawful is Mu'adh ibn Jabal.",
+    "source": "جامع الترمذي ٣٧٩٠",
+    "sourceEn": "Jami' al-Tirmidhi 3790"
+  },
+  {
+    "id": 10,
+    "name": "سلمان الفارسي",
+    "nameEn": "Salman al-Farisi",
+    "title": "الباحث عن الحق",
+    "titleEn": "The Seeker of Truth",
+    "bio": "رحل من فارس طلباً للحق، وخدم عدة رهبان حتى وصل إلى المدينة وأسلم. اقترح حفر الخندق في غزوة الأحزاب.",
+    "bioEn": "Traveled from Persia seeking the truth, serving several monks until he reached Madinah and embraced Islam. Suggested digging the trench in the Battle of the Trench.",
+    "kind": "about",
+    "female": false,
+    "quote": "لو كانَ الإيمانُ عندَ الثُّريّا لنالَه رجالٌ من هؤلاء.",
+    "quoteEn": "Even if faith were at the Pleiades, men from among these people would reach it.",
+    "source": "صحيح البخاري ٤٨٩٧ — ووضع يده على سلمان",
+    "sourceEn": "Sahih al-Bukhari 4897 — with his hand on Salman"
+  },
+  {
+    "id": 11,
+    "name": "أبو ذر الغفاري",
+    "nameEn": "Abu Dharr al-Ghifari",
+    "title": "صادق اللسان · الزاهد",
+    "titleEn": "Truthful Tongue · The Ascetic",
+    "bio": "من أشد الصحابة زهداً في الدنيا وصدقاً مع الله. قال عنه النبي ﷺ: \"ما أظلت الخضراء ولا أقلّت الغبراء من ذي لهجة أصدق من أبي ذر\".",
+    "bioEn": "Among the most ascetic and truthful companions. The Prophet ﷺ said: \"The sky has not shaded, nor the earth supported, a man more truthful than Abu Dharr.\"",
+    "kind": "own",
+    "female": false,
+    "quote": "واللهِ لوددتُ أنّي كنتُ شجرةً تُعضَد.",
+    "quoteEn": "By Allah, I wish I were a tree that is cut down.",
+    "source": "جامع الترمذي ٢٣١٢",
+    "sourceEn": "Jami' al-Tirmidhi 2312"
+  },
+  {
+    "id": 12,
+    "name": "عائشة بنت أبي بكر",
+    "nameEn": "Aisha bint Abi Bakr",
+    "title": "أم المؤمنين · حبيبة النبي",
+    "titleEn": "Mother of the Believers",
+    "bio": "أم المؤمنين وزوج النبي ﷺ المحبوبة. أكثر النساء رواية للحديث وأعلمهن بالفقه. كان الصحابة يسألونها عن أحوال النبي ﷺ الخاصة.",
+    "bioEn": "Mother of the Believers and beloved wife of the Prophet ﷺ. She narrated the most hadiths among women and was most knowledgeable in Islamic jurisprudence.",
+    "kind": "own",
+    "female": true,
+    "quote": "تُوفّي النبيُّ ﷺ في بيتي، وفي يومي، وبين سَحْري ونَحْري.",
+    "quoteEn": "The Prophet ﷺ passed away in my house, on my day, resting against my chest.",
+    "source": "صحيح البخاري",
+    "sourceEn": "Sahih al-Bukhari"
+  },
+  {
+    "id": 13,
+    "name": "أنس بن مالك",
+    "nameEn": "Anas ibn Malik",
+    "title": "خادم رسول الله",
+    "titleEn": "Servant of the Messenger of Allah",
+    "bio": "خدم النبي ﷺ عشر سنوات منذ كان طفلاً، ودعا له النبي بالبركة. روى الكثير من الأحاديث عن سيرة النبي ﷺ الخاصة.",
+    "bioEn": "Served the Prophet ﷺ for ten years from childhood. The Prophet ﷺ prayed for his blessings. Narrated many hadiths about the Prophet's ﷺ personal life.",
+    "kind": "own",
+    "female": false,
+    "quote": "خدمتُ النبيَّ ﷺ عشرَ سنين، فما قالَ لي: أُفٍّ، ولا: لِمَ صنعتَ؟ ولا: ألا صنعتَ.",
+    "quoteEn": "I served the Prophet ﷺ for ten years, and he never said \"uff\" to me, nor \"why did you do that?\", nor \"why didn't you do that?\"",
+    "source": "صحيح البخاري ٦٠٣٨",
+    "sourceEn": "Sahih al-Bukhari 6038"
+  },
+  {
+    "id": 14,
+    "name": "عبدالله بن عباس",
+    "nameEn": "Abdullah ibn Abbas",
+    "title": "حبر الأمة · ترجمان القرآن",
+    "titleEn": "Scholar of the Nation · Interpreter of the Quran",
+    "bio": "ابن عم النبي ﷺ، دعا له النبي بالعلم وهو صغير فكان أعلم الصحابة بتفسير القرآن. لُقّب بـ\"حبر الأمة\" و\"ترجمان القرآن\".",
+    "bioEn": "Cousin of the Prophet ﷺ. The Prophet prayed for his knowledge when he was young. He became the most knowledgeable companion in Quranic interpretation.",
+    "kind": "about",
+    "female": false,
+    "quote": "اللهمَّ علِّمْه الكتاب.",
+    "quoteEn": "O Allah, teach him the Book.",
+    "source": "صحيح البخاري ٧٥ — وقد ضمّه النبي ﷺ إليه",
+    "sourceEn": "Sahih al-Bukhari 75 — as the Prophet ﷺ held him close"
+  },
+  {
+    "id": 15,
+    "name": "أبو عبيدة بن الجراح",
+    "nameEn": "Abu Ubaydah ibn al-Jarrah",
+    "title": "أمين هذه الأمة",
+    "titleEn": "Trustee of This Nation",
+    "bio": "أحد العشرة المبشرين بالجنة. قاد الجيوش الإسلامية في فتح الشام، وعُرف بحلمه وتواضعه الشديد.",
+    "bioEn": "One of the ten companions promised Paradise. Led Islamic armies in the conquest of Syria. Known for his immense patience and humility.",
+    "kind": "about",
+    "female": false,
+    "quote": "إنّ لكلِّ أمّةٍ أمينًا، وإنّ أمينَنا أيّتُها الأمّةُ أبو عبيدةَ بنُ الجراح.",
+    "quoteEn": "Every nation has a trustee, and the trustee of this nation is Abu Ubaydah ibn al-Jarrah.",
+    "source": "صحيح البخاري ٣٧٤٤",
+    "sourceEn": "Sahih al-Bukhari 3744"
+  }
+]
+
+export function quoteLabel(s) {
+  if (s.kind === 'about') return { ar: 'قال فيه النبي ﷺ', en: s.female ? 'The Prophet ﷺ said of her' : 'The Prophet ﷺ said of him' }
+  return { ar: s.female ? 'من قولها' : 'من قوله', en: s.female ? 'In her words' : 'In his words' }
+}
+
+export function companionOfDay(date = new Date()) {
+  return SAHABA[Math.floor(date.getTime() / 86400000) % SAHABA.length]
+}

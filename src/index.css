@@ -2,71 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+/* House style: flat surfaces separated by a tone step (no gradients, glass or
+   resting shadows), one radius for surfaces (8px) and fully round controls. */
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply font-sans bg-stone-50 text-stone-900 dark:bg-emerald-950 dark:text-stone-100 transition-colors duration-300;
+    @apply font-sans bg-stone-50 text-stone-900 dark:bg-emerald-950 dark:text-stone-100 antialiased;
   }
 
   .arabic {
     @apply font-arabic;
     direction: rtl;
   }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.emerald.600');
+    outline-offset: 2px;
+  }
+  .dark :focus-visible { outline-color: theme('colors.gold.300'); }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-emerald-700 hover:bg-emerald-600 text-white font-medium px-5 py-2.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 min-h-12 px-6 rounded-full bg-emerald-800 text-white font-semibold
+           hover:bg-emerald-700 active:bg-emerald-900 transition-colors duration-150
+           dark:bg-gold-300 dark:text-emerald-950 dark:hover:bg-gold-200;
   }
 
-  .btn-gold {
-    @apply bg-gold-500 hover:bg-gold-400 text-stone-900 font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-95;
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 min-h-12 px-5 rounded-full bg-stone-200 text-stone-900 font-medium
+           hover:bg-stone-300 transition-colors duration-150 disabled:opacity-60
+           dark:bg-emerald-800 dark:text-stone-100 dark:hover:bg-emerald-700;
   }
 
+  .btn-on-dark {
+    @apply inline-flex items-center justify-center gap-2 min-h-12 px-5 rounded-full bg-white/15 text-white font-medium
+           hover:bg-white/25 transition-colors duration-150 disabled:opacity-60;
+  }
+
+  .btn-icon {
+    @apply inline-flex items-center justify-center w-11 h-11 rounded-full text-stone-700 hover:bg-stone-200
+           dark:text-stone-200 dark:hover:bg-emerald-800 transition-colors duration-150;
+  }
+
+  /* A surface: one tone step from the ground, no shadow. */
   .card {
-    @apply bg-white dark:bg-emerald-900/40 rounded-2xl shadow-sm border border-stone-200/60 dark:border-emerald-800/40 p-5 transition-all duration-200;
+    @apply bg-white dark:bg-emerald-900/50 rounded-lg border border-stone-200 dark:border-emerald-900 p-5;
   }
 
-  .card-hover {
-    @apply card hover:shadow-md hover:-translate-y-0.5;
+  .page-title {
+    @apply text-3xl sm:text-4xl font-bold text-emerald-900 dark:text-gold-200;
   }
 
-  .section-title {
-    @apply text-2xl font-bold text-emerald-800 dark:text-gold-300;
+  .page-sub {
+    @apply mt-2 text-base text-stone-700 dark:text-stone-300;
   }
 
   .nav-link {
-    @apply text-stone-600 dark:text-stone-300 hover:text-emerald-700 dark:hover:text-gold-300 font-medium transition-colors duration-200;
+    @apply text-stone-700 dark:text-stone-200 hover:text-emerald-800 dark:hover:text-gold-200 transition-colors duration-150;
   }
 
   .nav-link-active {
-    @apply text-emerald-700 dark:text-gold-300 font-semibold;
+    @apply text-emerald-800 dark:text-gold-200;
   }
 }
 
-/* Geometric pattern overlay */
-.geo-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23065f46' stroke-width='0.5' opacity='0.15'%3E%3Cpolygon points='30,2 58,18 58,42 30,58 2,42 2,18'/%3E%3Cpolygon points='30,10 52,22 52,38 30,50 8,38 8,22'/%3E%3Cline x1='30' y1='2' x2='30' y2='10'/%3E%3Cline x1='58' y1='18' x2='52' y2='22'/%3E%3Cline x1='58' y1='42' x2='52' y2='38'/%3E%3Cline x1='30' y1='58' x2='30' y2='50'/%3E%3Cline x1='2' y1='42' x2='8' y2='38'/%3E%3Cline x1='2' y1='18' x2='8' y2='22'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.dark .geo-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23d97706' stroke-width='0.5' opacity='0.12'%3E%3Cpolygon points='30,2 58,18 58,42 30,58 2,42 2,18'/%3E%3Cpolygon points='30,10 52,22 52,38 30,50 8,38 8,22'/%3E%3Cline x1='30' y1='2' x2='30' y2='10'/%3E%3Cline x1='58' y1='18' x2='52' y2='22'/%3E%3Cline x1='58' y1='42' x2='52' y2='38'/%3E%3Cline x1='30' y1='58' x2='30' y2='50'/%3E%3Cline x1='2' y1='42' x2='8' y2='38'/%3E%3Cline x1='2' y1='18' x2='8' y2='22'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar { width: 6px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { @apply bg-stone-100 dark:bg-emerald-950; }
-::-webkit-scrollbar-thumb { @apply bg-emerald-600/40 dark:bg-gold-600/40 rounded-full; }
-::-webkit-scrollbar-thumb:hover { @apply bg-emerald-600 dark:bg-gold-500; }
+::-webkit-scrollbar-thumb { @apply bg-stone-300 dark:bg-emerald-800 rounded-full; }
 
-/* Audio player */
 audio { width: 100%; }
-audio::-webkit-media-controls-panel { background: transparent; }
 
-/* Page transition */
-.page-enter {
-  animation: fadeIn 0.35s ease-out;
+/* Page entrance: content is visible without it, and it is dropped for reduced motion. */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.page-enter { animation: fadeIn 0.25s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

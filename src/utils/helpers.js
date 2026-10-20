@@ -27,8 +27,9 @@ export function prayerTimeToDate(timeStr) {
 }
 
 // Find the next upcoming prayer from timings object
+// Sunrise is shown in the timetable but is not a prayer, so it is never "next".
 export function getNextPrayer(timings) {
-  const prayers = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']
+  const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']
   const now = new Date()
   for (const name of prayers) {
     const t = prayerTimeToDate(timings[name])
@@ -56,4 +57,36 @@ export const ls = {
     try { localStorage.setItem(key, JSON.stringify(value)) }
     catch {}
   },
+}
+
+// Which part of the day it is, by today's prayer times (or the clock as a fallback).
+// Drives the colour of the home page: the site's name means "light".
+export function skyPhase(timings, now = new Date()) {
+  if (timings) {
+    const at = (k) => prayerTimeToDate(timings[k])
+    if (now < at('Fajr')) return 'isha'
+    if (now < at('Sunrise')) return 'fajr'
+    if (now < at('Dhuhr')) return 'morning'
+    if (now < at('Asr')) return 'dhuhr'
+    if (now < at('Maghrib')) return 'asr'
+    if (now < at('Isha')) return 'maghrib'
+    return 'isha'
+  }
+  const h = now.getHours() + now.getMinutes() / 60
+  if (h < 4.5) return 'isha'
+  if (h < 6.5) return 'fajr'
+  if (h < 12) return 'morning'
+  if (h < 15) return 'dhuhr'
+  if (h < 17.5) return 'asr'
+  if (h < 19.5) return 'maghrib'
+  return 'isha'
+}
+
+export const PRAYER_NAMES = {
+  Fajr:    { en: 'Fajr',    ar: 'الفجر'  },
+  Sunrise: { en: 'Sunrise', ar: 'الشروق' },
+  Dhuhr:   { en: 'Dhuhr',   ar: 'الظهر'  },
+  Asr:     { en: 'Asr',     ar: 'العصر'  },
+  Maghrib: { en: 'Maghrib', ar: 'المغرب' },
+  Isha:    { en: 'Isha',    ar: 'العشاء' },
 }

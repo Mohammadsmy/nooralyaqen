@@ -21,6 +21,7 @@ export default {
           900: '#78350f',
         },
       },
+      minHeight: { 12: '3rem' },
       fontFamily: {
         arabic: ['Amiri', 'serif'],
         sans: ['Inter', 'sans-serif'],
