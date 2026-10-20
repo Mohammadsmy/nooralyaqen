@@ -247,7 +247,7 @@ export default function Quran() {
                     </div>
 
                     {/* Arabic text */}
-                    <p lang="ar" className="font-arabic text-3xl sm:text-4xl text-right leading-[2] text-stone-900 dark:text-stone-50 arabic mb-4">
+                    <p lang="ar" className="quran-text text-3xl sm:text-4xl text-right text-stone-900 dark:text-stone-50 mb-4">
                       {ayah.text}
                     </p>
 

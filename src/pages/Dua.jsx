@@ -359,7 +359,7 @@ export default function Dua() {
                     </button>
                   </div>
                 </div>
-                <p lang="ar" className="font-arabic text-2xl sm:text-3xl text-right leading-[2] text-stone-900 dark:text-stone-50 arabic mb-4">
+                <p lang="ar" className="font-arabic arabic-text text-2xl sm:text-3xl text-right text-stone-900 dark:text-stone-50 mb-4">
                   {dua.arabic}
                 </p>
                 <p className="text-base text-stone-600 dark:text-stone-300 italic mb-2 leading-relaxed">{dua.transliteration}</p>
