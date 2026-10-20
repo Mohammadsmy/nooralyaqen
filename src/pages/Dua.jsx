@@ -1,19 +1,21 @@
 import { useState, useMemo } from 'react'
 import { ls } from '../utils/helpers'
+import { usePageTitle } from '../hooks/usePageTitle'
+import Icon from '../components/Icon'
 
 const CATEGORIES = [
-  { id: 'all',      en: 'All Duas',      ar: 'جميع الأدعية',     icon: '🤲' },
-  { id: 'morning',  en: 'Morning',        ar: 'أذكار الصباح',     icon: '🌅' },
-  { id: 'evening',  en: 'Evening',        ar: 'أذكار المساء',     icon: '🌆' },
-  { id: 'salah',    en: 'Prayer',         ar: 'الصلاة',           icon: '🕌' },
-  { id: 'food',     en: 'Food & Drink',   ar: 'الطعام والشراب',   icon: '🍽' },
-  { id: 'sleep',    en: 'Sleep',          ar: 'النوم',            icon: '🌙' },
-  { id: 'travel',   en: 'Travel',         ar: 'السفر',            icon: '✈️' },
-  { id: 'stress',   en: 'Distress',       ar: 'الكرب والهم',      icon: '🫀' },
-  { id: 'family',   en: 'Family',         ar: 'الأسرة',           icon: '👨‍👩‍👧' },
-  { id: 'forgive',  en: 'Forgiveness',    ar: 'الاستغفار',        icon: '💚' },
-  { id: 'quran',    en: 'Quranic',        ar: 'من القرآن',        icon: '📖' },
-  { id: 'general',  en: 'General',        ar: 'عامة',             icon: '⭐' },
+  { id: 'all',      en: 'All Duas',      ar: 'جميع الأدعية' },
+  { id: 'morning',  en: 'Morning',        ar: 'أذكار الصباح' },
+  { id: 'evening',  en: 'Evening',        ar: 'أذكار المساء' },
+  { id: 'salah',    en: 'Prayer',         ar: 'الصلاة' },
+  { id: 'food',     en: 'Food & Drink',   ar: 'الطعام والشراب' },
+  { id: 'sleep',    en: 'Sleep',          ar: 'النوم' },
+  { id: 'travel',   en: 'Travel',         ar: 'السفر' },
+  { id: 'stress',   en: 'Distress',       ar: 'الكرب والهم' },
+  { id: 'family',   en: 'Family',         ar: 'الأسرة' },
+  { id: 'forgive',  en: 'Forgiveness',    ar: 'الاستغفار' },
+  { id: 'quran',    en: 'Quranic',        ar: 'من القرآن' },
+  { id: 'general',  en: 'General',        ar: 'عامة' },
 ]
 
 const DUAS = [
@@ -34,10 +36,10 @@ const DUAS = [
   },
   {
     id: 3, category: 'morning',
-    arabic: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ — اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ',
-    transliteration: "A'udhu billahi minash-shaytanir-rajim — Allahu la ilaha illa huwal-hayyul-qayyum",
-    en: 'I seek refuge in Allah from Satan the outcast — Allah! There is no god but He, the Ever-Living, the Self-Sustaining. (Ayatul Kursi)',
-    source: 'Quran 2:255',
+    arabic: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ',
+    transliteration: "Allahu la ilaha illa Huwal-Hayyul-Qayyum, la ta'khudhuhu sinatun wa la nawm, lahu ma fis-samawati wa ma fil-ard, man dhal-ladhi yashfa'u 'indahu illa bi-idhnih, ya'lamu ma bayna aydihim wa ma khalfahum, wa la yuhituna bi-shay'im-min 'ilmihi illa bima sha', wasi'a kursiyyuhus-samawati wal-ard, wa la ya'uduhu hifzuhuma, wa Huwal-'Aliyyul-'Azim",
+    en: 'Allah – there is no deity except Him, the Ever-Living, the Sustainer of [all] existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.',
+    source: 'Quran 2:255 — Ayat al-Kursi',
   },
   // EVENING
   {
@@ -49,10 +51,10 @@ const DUAS = [
   },
   {
     id: 5, category: 'evening',
-    arabic: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ',
-    transliteration: 'Allahumma anta rabbi la ilaha illa ant, khalaqtani wa ana abduk, wa ana ala ahdika wa wa\'dika mastata\'t',
-    en: 'O Allah, You are my Lord, none has the right to be worshipped except You. You created me and I am Your servant, and I abide to Your covenant and promise as best I can.',
-    source: 'Bukhari — Sayyidul Istighfar',
+    arabic: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ',
+    transliteration: 'Allahumma anta rabbi la ilaha illa ant, khalaqtani wa ana abduk, wa ana ala ahdika wa wa\'dika mastata\'t, a\'udhu bika min sharri ma sana\'t, abu\'u laka bi-ni\'matika \'alayya, wa abu\'u laka bi-dhanbi, faghfir li, fa-innahu la yaghfirudh-dhunuba illa ant',
+    en: 'O Allah, You are my Lord, none has the right to be worshipped except You. You created me and I am Your servant, and I abide by Your covenant and promise as best I can. I seek refuge in You from the evil of what I have done. I acknowledge Your favour upon me and I acknowledge my sin, so forgive me, for none forgives sins except You.',
+    source: 'Bukhari 6306 — Sayyid al-Istighfar',
   },
   // PRAYER
   {
@@ -138,10 +140,10 @@ const DUAS = [
   // DISTRESS
   {
     id: 17, category: 'stress',
-    arabic: 'اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، نَاصِيَتِي بِيَدِكَ، مَاضٍ فِيَّ حُكْمُكَ، عَدْلٌ فِيَّ قَضَاؤُكَ',
-    transliteration: "Allahumma inni 'abduk, ibnu 'abdik, ibnu amatik, nasiyati biyadik, madin fiyya hukmuk, 'adlun fiyya qada'uk",
-    en: 'O Allah, I am Your servant, son of Your servant, son of Your maidservant. My forelock is in Your hand, Your command over me is forever executed, Your decree over me is just.',
-    source: 'Ahmad — Dua for grief',
+    arabic: 'اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، نَاصِيَتِي بِيَدِكَ، مَاضٍ فِيَّ حُكْمُكَ، عَدْلٌ فِيَّ قَضَاؤُكَ، أَسْأَلُكَ بِكُلِّ اسْمٍ هُوَ لَكَ، سَمَّيْتَ بِهِ نَفْسَكَ، أَوْ أَنْزَلْتَهُ فِي كِتَابِكَ، أَوْ عَلَّمْتَهُ أَحَدًا مِنْ خَلْقِكَ، أَوِ اسْتَأْثَرْتَ بِهِ فِي عِلْمِ الْغَيْبِ عِنْدَكَ، أَنْ تَجْعَلَ الْقُرْآنَ رَبِيعَ قَلْبِي، وَنُورَ صَدْرِي، وَجِلَاءَ حُزْنِي، وَذَهَابَ هَمِّي',
+    transliteration: "Allahumma inni 'abduk, ibnu 'abdik, ibnu amatik, nasiyati biyadik, madin fiyya hukmuk, 'adlun fiyya qada'uk, as'aluka bi-kulli ismin huwa lak, sammayta bihi nafsak, aw anzaltahu fi kitabik, aw 'allamtahu ahadan min khalqik, awista'tharta bihi fi 'ilmil-ghaybi 'indak, an taj'alal-Qur'ana rabi'a qalbi, wa nura sadri, wa jala'a huzni, wa dhahaba hammi",
+    en: 'O Allah, I am Your servant, son of Your servant, son of Your maidservant. My forelock is in Your hand, Your command over me is forever executed, Your decree over me is just. I ask You by every name that is Yours, by which You have named Yourself, or revealed in Your Book, or taught to any of Your creation, or kept in the knowledge of the unseen with You, to make the Quran the spring of my heart, the light of my chest, the removal of my sorrow and the release of my anxiety.',
+    source: 'Musnad Ahmad 3712 — for grief and anxiety',
   },
   {
     id: 18, category: 'stress',
@@ -246,6 +248,7 @@ export default function Dua() {
   const [favorites, setFavorites] = useState(() => ls.get('noorpath-dua-favs', []))
   const [copied, setCopied] = useState(null)
   const [showFavs, setShowFavs] = useState(false)
+  usePageTitle('Adhkar', 'Morning, evening and everyday supplications from the Quran and Sunnah, each with its source.')
 
   const filtered = useMemo(() => {
     let list = showFavs ? DUAS.filter(d => favorites.includes(d.id)) : DUAS
@@ -276,71 +279,59 @@ export default function Dua() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <span className="text-4xl">🤲</span>
-        <div>
-          <h1 className="text-2xl font-bold text-emerald-800 dark:text-gold-300 font-arabic">
-            أذكار · <span className="font-sans">Adhkar</span>
-          </h1>
-          <p className="text-stone-500 dark:text-stone-400 text-sm">
-            Authentic duas from Quran & Sunnah · <span className="font-arabic">أدعية مأثورة من القرآن والسنة</span>
-          </p>
-        </div>
-      </div>
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <h1 className="page-title">
+        Adhkar · <span lang="ar" dir="rtl" className="font-arabic font-normal">الأذكار</span>
+      </h1>
+      <p className="page-sub">Supplications from the Quran and Sunnah, each with its source.</p>
 
-      {/* Search + favs toggle */}
-      <div className="flex gap-3 mb-5">
-        <input
-          type="text"
-          placeholder="Search duas… · ابحث عن دعاء"
-          value={search}
-          onChange={e => { setSearch(e.target.value); setShowFavs(false) }}
-          className="flex-1 px-4 py-2.5 text-sm rounded-xl border border-stone-200 dark:border-emerald-700 bg-white dark:bg-emerald-900/40 text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-        />
+      <div className="mt-8 flex gap-3">
+        <label className="flex-1">
+          <span className="sr-only">Search supplications</span>
+          <input
+            type="search"
+            placeholder="Search · ابحث"
+            value={search}
+            onChange={e => { setSearch(e.target.value); setShowFavs(false) }}
+            className="w-full h-12 px-4 text-base rounded-lg border border-stone-300 dark:border-emerald-700 bg-white dark:bg-emerald-900/40 text-stone-900 dark:text-stone-100"
+          />
+        </label>
         <button
           onClick={() => { setShowFavs(!showFavs); setSearch('') }}
-          className={`px-4 py-2.5 rounded-xl text-sm font-medium border transition-all ${
-            showFavs
-              ? 'bg-gold-500 border-gold-400 text-stone-900'
-              : 'bg-white dark:bg-emerald-900/40 border-stone-200 dark:border-emerald-700 text-stone-600 dark:text-stone-300 hover:border-gold-400'
-          }`}
+          aria-pressed={showFavs}
+          className={showFavs ? 'btn-primary' : 'btn-secondary'}
         >
-          ❤️ {favorites.length}
+          <Icon name="heart" filled={showFavs} className="w-4 h-4" /> Saved ({favorites.length})
         </button>
       </div>
 
-      {/* Category chips */}
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-none">
+      <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filter by occasion">
         {CATEGORIES.map(cat => (
           <button
             key={cat.id}
             onClick={() => { setActiveCategory(cat.id); setShowFavs(false) }}
-            className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+            aria-pressed={activeCategory === cat.id && !showFavs}
+            className={`min-h-11 px-4 rounded-full text-sm font-medium transition-colors ${
               activeCategory === cat.id && !showFavs
-                ? 'bg-emerald-700 text-white border-emerald-600 shadow-sm'
-                : 'bg-white dark:bg-emerald-900/30 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-emerald-700 hover:border-emerald-400'
+                ? 'bg-emerald-800 text-white dark:bg-gold-200 dark:text-emerald-950'
+                : 'bg-stone-200 text-stone-900 hover:bg-stone-300 dark:bg-emerald-900 dark:text-stone-100 dark:hover:bg-emerald-800'
             }`}
           >
-            <span>{cat.icon}</span>
-            <span>{cat.en}</span>
-            <span className="font-arabic opacity-70">· {cat.ar}</span>
+            {cat.en} · <span lang="ar" dir="rtl" className="font-arabic">{cat.ar}</span>
           </button>
         ))}
       </div>
 
-      {/* Count */}
-      <p className="text-xs text-stone-400 dark:text-stone-500 mb-4">
-        {filtered.length} {filtered.length === 1 ? 'dua' : 'duas'} · <span className="font-arabic">{filtered.length} دعاء</span>
-        {showFavs && <span className="ml-2 text-gold-500">❤️ Favorites · المفضلة</span>}
+      <p className="mt-6 mb-4 text-sm text-stone-700 dark:text-stone-300" role="status">
+        {showFavs ? 'Saved: ' : ''}{filtered.length} {filtered.length === 1 ? 'supplication' : 'supplications'}
       </p>
 
       {/* Duas list */}
       {filtered.length === 0 ? (
-        <div className="card text-center py-12 text-stone-400 dark:text-stone-500">
-          <p className="text-4xl mb-3">🤲</p>
-          <p>No duas found · <span className="font-arabic">لا توجد نتائج</span></p>
+        <div className="card text-center py-12 text-stone-700 dark:text-stone-300">
+          {showFavs
+            ? <p>Nothing saved yet. Tap the heart on a supplication to keep it here.</p>
+            : <p>Nothing matches “{search}”. Try another word, in Arabic or English.</p>}
         </div>
       ) : (
         <div className="space-y-4">
@@ -349,58 +340,32 @@ export default function Dua() {
             const isFav = favorites.includes(dua.id)
             const isCopied = copied === dua.id
             return (
-              <div key={dua.id} className="card border-l-4 border-l-emerald-200 dark:border-l-emerald-700 hover:border-l-emerald-500 dark:hover:border-l-gold-500 transition-all animate-slide-up">
-                {/* Top bar */}
+              <article key={dua.id} className="card">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-800/50 text-emerald-700 dark:text-gold-400 border border-emerald-200 dark:border-emerald-700">
-                    {cat?.icon} {cat?.en} · <span className="font-arabic">{cat?.ar}</span>
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => copyDua(dua)}
-                      className={`p-1.5 rounded-lg text-sm transition-colors ${
-                        isCopied
-                          ? 'bg-emerald-100 dark:bg-emerald-800 text-emerald-600'
-                          : 'text-stone-400 hover:text-emerald-600 hover:bg-stone-100 dark:hover:bg-emerald-800'
-                      }`}
-                      title="Copy · نسخ"
-                    >
-                      {isCopied ? '✓' : '⧉'}
+                  <p className="text-sm font-medium text-emerald-800 dark:text-gold-200">
+                    {cat?.en} · <span lang="ar" dir="rtl" className="font-arabic">{cat?.ar}</span>
+                  </p>
+                  <div className="flex items-center">
+                    <button onClick={() => copyDua(dua)} className="btn-icon" aria-label={isCopied ? 'Copied' : 'Copy this supplication'}>
+                      <Icon name={isCopied ? 'check' : 'copy'} />
                     </button>
                     <button
                       onClick={() => toggleFav(dua.id)}
-                      className={`p-1.5 rounded-lg text-sm transition-colors ${
-                        isFav
-                          ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
-                          : 'text-stone-300 hover:text-red-400 hover:bg-stone-100 dark:hover:bg-emerald-800'
-                      }`}
-                      title={isFav ? 'Remove from favorites · إزالة من المفضلة' : 'Add to favorites · أضف للمفضلة'}
+                      className={`btn-icon ${isFav ? 'text-red-700 dark:text-red-300' : ''}`}
+                      aria-pressed={isFav}
+                      aria-label={isFav ? 'Remove from saved' : 'Save this supplication'}
                     >
-                      {isFav ? '❤️' : '🤍'}
+                      <Icon name="heart" filled={isFav} />
                     </button>
                   </div>
                 </div>
-
-                {/* Arabic */}
-                <p className="font-arabic text-xl sm:text-2xl text-right leading-loose text-emerald-800 dark:text-gold-300 arabic mb-3">
+                <p lang="ar" className="font-arabic text-2xl sm:text-3xl text-right leading-[2] text-stone-900 dark:text-stone-50 arabic mb-4">
                   {dua.arabic}
                 </p>
-
-                {/* Transliteration */}
-                <p className="text-sm text-stone-400 dark:text-stone-500 italic mb-2 leading-relaxed">
-                  {dua.transliteration}
-                </p>
-
-                {/* Translation */}
-                <p className="text-stone-600 dark:text-stone-300 text-sm leading-relaxed mb-3">
-                  {dua.en}
-                </p>
-
-                {/* Source */}
-                <p className="text-xs text-gold-600 dark:text-gold-500 font-medium">
-                  📚 {dua.source}
-                </p>
-              </div>
+                <p className="text-base text-stone-600 dark:text-stone-300 italic mb-2 leading-relaxed">{dua.transliteration}</p>
+                <p className="text-lg text-stone-900 dark:text-stone-100 leading-relaxed mb-3">{dua.en}</p>
+                <p className="text-sm text-stone-700 dark:text-stone-300">Source: {dua.source}</p>
+              </article>
             )
           })}
         </div>
