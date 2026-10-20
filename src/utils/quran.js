@@ -7,7 +7,7 @@ const BASMALA = ['بسم', 'الله', 'الرحمن', 'الرحيم']
 // Remove harakat, Quranic marks and tatweel; normalise alif wasla to alif.
 function bare(word) {
   return word
-    .replace(/[ؐ-ًؚ-ٰٟۖ-ۭـ]/g, '')
+    .replace(/[﻿ؐ-ًؚ-ٰٟۖ-ۭـ]/g, '')
     .replace(/ٱ/g, 'ا')
 }
 

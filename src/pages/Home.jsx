@@ -120,7 +120,7 @@ export default function Home() {
             )}
             {(!place || picking) && (
               <div className="mt-6">
-                <PlacePicker tone={sky.dark ? 'dark' : 'page'} onDone={() => setPicking(false)} />
+                <PlacePicker tone={sky.dark ? 'dark' : 'light'} onDone={() => setPicking(false)} />
               </div>
             )}
           </div>
@@ -131,7 +131,7 @@ export default function Home() {
       <section aria-labelledby="verse-title" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 grid gap-12 lg:grid-cols-5 lg:items-center">
         <div className="lg:col-span-3">
           <h2 id="verse-title" className="text-3xl font-bold text-emerald-900 dark:text-gold-200">
-            Today’s verse <span lang="ar" dir="rtl" className="font-arabic font-normal text-stone-600 dark:text-stone-300">· آية اليوم</span>
+            Today’s verse · <span lang="ar" dir="rtl" className="font-arabic font-normal text-stone-600 dark:text-stone-300">آية اليوم</span>
           </h2>
           {verse ? (
             <>

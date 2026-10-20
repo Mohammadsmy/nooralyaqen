@@ -5,6 +5,8 @@ import { aladhanApi } from '../utils/api'
 import { degreesToCardinal } from '../utils/helpers'
 import PlacePicker from '../components/PlacePicker'
 
+const CARDINAL = { N: 'north', NE: 'north-east', E: 'east', SE: 'south-east', S: 'south', SW: 'south-west', W: 'west', NW: 'north-west' }
+
 export default function Qibla() {
   usePageTitle('Qibla', 'The direction of the Kaaba in Makkah from where you are.')
   const { place } = usePlace()
@@ -55,7 +57,7 @@ export default function Qibla() {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="page-title">
-        Qibla <span lang="ar" dir="rtl" className="font-arabic font-normal">· القبلة</span>
+        Qibla · <span lang="ar" dir="rtl" className="font-arabic font-normal">القبلة</span>
       </h1>
       <p className="page-sub">
         {place
@@ -99,12 +101,14 @@ export default function Qibla() {
             <div className="mt-8 text-center" role="status">
               <p className="text-5xl font-bold text-emerald-900 dark:text-gold-200 tabular-nums">{Math.round(qibla)}°</p>
               <p className="mt-2 text-lg">
-                {degreesToCardinal(qibla)} of true north, toward Makkah <span lang="ar" dir="rtl" className="font-arabic">· نحو مكة المكرمة</span>
+                Measured clockwise from true north, toward Makkah (roughly {CARDINAL[degreesToCardinal(qibla)]}) · <span lang="ar" dir="rtl" className="font-arabic">نحو مكة المكرمة</span>
               </p>
               <p className="mt-3 text-base text-stone-700 dark:text-stone-300 max-w-md">
                 {heading != null
                   ? 'Your phone’s compass is on: hold it flat and turn until the Kaaba points straight ahead.'
-                  : 'No compass on this device, so the needle is drawn from north. Face north, then turn by the angle above.'}
+                  : needsPermission
+                    ? 'The needle is drawn from north. On a phone, turn on the compass so it follows the way you face.'
+                    : 'The needle is drawn from north: face north, then turn by the angle above. On a phone with a compass it follows the way you face.'}
               </p>
               {needsPermission && heading == null && (
                 <button type="button" onClick={enableCompass} className="btn-primary mt-5">Use my phone’s compass</button>

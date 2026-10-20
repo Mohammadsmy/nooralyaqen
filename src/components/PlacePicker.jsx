@@ -33,10 +33,30 @@ export default function PlacePicker({ onDone, compact = false, tone = 'page' }) 
     onDone?.()
   }
 
-  const onDark = tone === 'dark'
-  const field = onDark
-    ? 'bg-white/10 text-white placeholder-white/60 border-white/30 focus:border-gold-300'
-    : 'bg-white dark:bg-emerald-900 text-stone-900 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 border-stone-300 dark:border-emerald-700 focus:border-emerald-600 dark:focus:border-gold-400'
+  // tone: 'page' follows the site theme; 'light' / 'dark' sit on the home page's sky colour.
+  const STYLE = {
+    dark: {
+      field: 'bg-white/10 text-white placeholder-white/70 border-white/40 focus:border-gold-300',
+      button: 'btn-on-dark',
+      note: 'text-gold-100', quiet: 'text-white/80',
+      list: 'bg-white text-stone-900', row: 'hover:bg-stone-100', region: 'text-stone-600',
+    },
+    light: {
+      field: 'bg-white text-stone-900 placeholder-stone-500 border-stone-400 focus:border-emerald-700',
+      button: 'inline-flex items-center justify-center gap-2 min-h-12 px-5 rounded-full bg-stone-900/10 text-stone-900 font-medium hover:bg-stone-900/20 disabled:opacity-60',
+      note: 'text-red-800', quiet: 'text-stone-700',
+      list: 'bg-white text-stone-900 border border-stone-300', row: 'hover:bg-stone-100', region: 'text-stone-600',
+    },
+    page: {
+      field: 'bg-white dark:bg-emerald-900 text-stone-900 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 border-stone-300 dark:border-emerald-700 focus:border-emerald-600 dark:focus:border-gold-400',
+      button: 'btn-secondary',
+      note: 'text-red-700 dark:text-red-300', quiet: 'text-stone-600 dark:text-stone-300',
+      list: 'bg-white dark:bg-emerald-900 border border-stone-200 dark:border-emerald-800',
+      row: 'hover:bg-stone-100 dark:hover:bg-emerald-800', region: 'text-stone-600 dark:text-stone-300',
+    },
+  }
+  const st = STYLE[tone] || STYLE.page
+  const field = st.field
 
   return (
     <div className={compact ? '' : 'max-w-md'}>
@@ -56,7 +76,7 @@ export default function PlacePicker({ onDone, compact = false, tone = 'page' }) 
           type="button"
           onClick={locate}
           disabled={locating}
-          className={onDark ? 'btn-on-dark' : 'btn-secondary'}
+          className={st.button}
         >
           <Icon name="pin" className="w-4 h-4" />
           {locating ? 'Locating…' : 'Use my location'}
@@ -64,23 +84,23 @@ export default function PlacePicker({ onDone, compact = false, tone = 'page' }) 
       </div>
 
       {(error || searchErr) && (
-        <p role="status" className={`mt-3 text-sm ${onDark ? 'text-gold-100' : 'text-red-700 dark:text-red-300'}`}>
+        <p role="status" className={`mt-3 text-sm ${st.note}`}>
           {searchErr || error}
         </p>
       )}
-      {searching && <p className={`mt-3 text-sm ${onDark ? 'text-white/80' : 'text-stone-600 dark:text-stone-300'}`}>Searching…</p>}
+      {searching && <p className={`mt-3 text-sm ${st.quiet}`}>Searching…</p>}
 
       {results.length > 0 && (
-        <ul className={`mt-2 rounded-lg overflow-hidden ${onDark ? 'bg-white text-stone-900' : 'bg-white dark:bg-emerald-900 border border-stone-200 dark:border-emerald-800'}`}>
+        <ul className={`mt-2 rounded-lg overflow-hidden ${st.list}`}>
           {results.map(r => (
             <li key={`${r.lat},${r.lon}`}>
               <button
                 type="button"
                 onClick={() => choose(r)}
-                className="w-full min-h-12 px-4 py-2 text-left hover:bg-stone-100 dark:hover:bg-emerald-800 focus-visible:bg-stone-100"
+                className={`w-full min-h-12 px-4 py-2 text-left focus-visible:bg-stone-100 ${st.row}`}
               >
                 <span className="font-medium">{r.name}</span>
-                {r.region && <span className="text-stone-600 dark:text-stone-300"> · {r.region}</span>}
+                {r.region && <span className={st.region}> · {r.region}</span>}
               </button>
             </li>
           ))}

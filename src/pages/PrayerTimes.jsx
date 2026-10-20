@@ -22,7 +22,7 @@ export default function PrayerTimes() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="page-title">
-        Prayer times <span lang="ar" dir="rtl" className="font-arabic font-normal">· أوقات الصلاة</span>
+        Prayer times · <span lang="ar" dir="rtl" className="font-arabic font-normal">أوقات الصلاة</span>
       </h1>
       <p className="page-sub">
         {place

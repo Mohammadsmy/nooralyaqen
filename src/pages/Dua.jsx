@@ -281,7 +281,7 @@ export default function Dua() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="page-title">
-        Adhkar <span lang="ar" dir="rtl" className="font-arabic font-normal">· الأذكار</span>
+        Adhkar · <span lang="ar" dir="rtl" className="font-arabic font-normal">الأذكار</span>
       </h1>
       <p className="page-sub">Supplications from the Quran and Sunnah, each with its source.</p>
 
@@ -317,7 +317,7 @@ export default function Dua() {
                 : 'bg-stone-200 text-stone-900 hover:bg-stone-300 dark:bg-emerald-900 dark:text-stone-100 dark:hover:bg-emerald-800'
             }`}
           >
-            {cat.en} <span lang="ar" dir="rtl" className="font-arabic">· {cat.ar}</span>
+            {cat.en} · <span lang="ar" dir="rtl" className="font-arabic">{cat.ar}</span>
           </button>
         ))}
       </div>
@@ -343,7 +343,7 @@ export default function Dua() {
               <article key={dua.id} className="card">
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm font-medium text-emerald-800 dark:text-gold-200">
-                    {cat?.en} <span lang="ar" dir="rtl" className="font-arabic">· {cat?.ar}</span>
+                    {cat?.en} · <span lang="ar" dir="rtl" className="font-arabic">{cat?.ar}</span>
                   </p>
                   <div className="flex items-center">
                     <button onClick={() => copyDua(dua)} className="btn-icon" aria-label={isCopied ? 'Copied' : 'Copy this supplication'}>

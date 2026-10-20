@@ -65,7 +65,7 @@ export default function Tasbeeh() {
       <div className="flex items-start gap-3 mb-8">
         <div>
           <h1 className="page-title">
-            Tasbeeh <span lang="ar" dir="rtl" className="font-arabic font-normal">· التسبيح</span>
+            Tasbeeh · <span lang="ar" dir="rtl" className="font-arabic font-normal">التسبيح</span>
           </h1>
           <p className="page-sub">Choose a phrase and count. Today’s counts are kept on this device.</p>
         </div>
@@ -175,7 +175,7 @@ export default function Tasbeeh() {
             isComplete ? 'bg-gold-300 hover:bg-gold-200 text-stone-900' : 'bg-emerald-800 hover:bg-emerald-700 text-white'
           }`}
         >
-          Count <span lang="ar" dir="rtl" className="font-arabic font-normal">· عُدّ</span>
+          Count · <span lang="ar" dir="rtl" className="font-arabic font-normal">عُدّ</span>
           <span className="block text-sm font-normal mt-1">or press Space</span>
         </button>
 
@@ -187,7 +187,7 @@ export default function Tasbeeh() {
       {/* Summary */}
       <div className="card">
         <h2 className="font-semibold text-stone-900 dark:text-stone-100 mb-3 text-lg">
-          Today <span lang="ar" dir="rtl" className="font-arabic font-normal">· اليوم</span>
+          Today · <span lang="ar" dir="rtl" className="font-arabic font-normal">اليوم</span>
         </h2>
         <div className="space-y-2">
           {DHIKR_PRESETS.map(d => (

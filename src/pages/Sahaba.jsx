@@ -8,14 +8,14 @@ function Quote({ s, size = 'lg' }) {
   return (
     <blockquote>
       <p className="text-sm font-semibold text-emerald-800 dark:text-gold-200">
-        {label.en} <span lang="ar" dir="rtl" className="font-arabic">· {label.ar}</span>
+        {label.en} · <span lang="ar" dir="rtl" className="font-arabic">{label.ar}</span>
       </p>
       <p lang="ar" dir="rtl" className={`mt-3 font-arabic leading-[1.9] text-stone-900 dark:text-stone-50 ${size === 'lg' ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
         {s.quote}
       </p>
       <p className={`mt-3 leading-relaxed text-stone-800 dark:text-stone-200 ${size === 'lg' ? 'text-lg' : 'text-base'}`}>{s.quoteEn}</p>
       <footer className="mt-2 text-sm text-stone-700 dark:text-stone-300">
-        — {s.sourceEn} <span lang="ar" dir="rtl" className="font-arabic">· {s.source}</span>
+        — {s.sourceEn} · <span lang="ar" dir="rtl" className="font-arabic">{s.source}</span>
       </footer>
     </blockquote>
   )
@@ -45,7 +45,7 @@ export default function Sahaba() {
       <section aria-labelledby="sahaba-title" className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16 grid gap-10 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <h1 id="sahaba-title" className="page-title">
-            The Companions <span lang="ar" dir="rtl" className="font-arabic font-normal">· الصحابة</span>
+            The Companions · <span lang="ar" dir="rtl" className="font-arabic font-normal">الصحابة</span>
           </h1>
           <p className="page-sub">
             Fifteen companions of the Prophet ﷺ, <span lang="ar" dir="rtl" className="font-arabic">رضي الله عنهم</span>. Each quote says whose words it is and where it is recorded.
@@ -119,7 +119,7 @@ export default function Sahaba() {
               </button>
             </div>
             <div className="mt-6"><Quote s={selected} size="md" /></div>
-            <h3 className="mt-8 text-lg font-semibold">Life <span lang="ar" dir="rtl" className="font-arabic font-normal">· نبذة</span></h3>
+            <h3 className="mt-8 text-lg font-semibold">Life · <span lang="ar" dir="rtl" className="font-arabic font-normal">نبذة</span></h3>
             <p lang="ar" dir="rtl" className="mt-2 font-arabic text-xl leading-loose">{selected.bio}</p>
             <p className="mt-3 text-base leading-relaxed text-stone-800 dark:text-stone-200">{selected.bioEn}</p>
           </div>
