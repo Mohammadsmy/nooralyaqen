@@ -14,6 +14,7 @@ import CardImage from './pages/CardImage'
 import Sahaba from './pages/Sahaba'
 import NotFound from './pages/NotFound'
 import { PlaceProvider } from './hooks/usePlace'
+import { Analytics } from '@vercel/analytics/react'
 
 export default function App() {
   const [dark, setDark] = useState(() => {
@@ -54,6 +55,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
+      <Analytics />
       </PlaceProvider>
     </BrowserRouter>
   )
