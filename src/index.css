@@ -71,14 +71,16 @@
 
 /* Arabic body text. Declared after the utilities so a text-size class
    (which carries its own tight line-height) cannot squeeze the marks. */
-.arabic-text { line-height: 2; }
+/* !important: Tailwind emits responsive size classes (sm:text-4xl) last in the
+   stylesheet, and each one resets line-height, so a plain rule would lose. */
+.arabic-text { line-height: 2 !important; }
 
 /* Quran text: the Uthmani script uses marks (small high/low letters,
    pause signs) that only a Quran font draws correctly, and it needs room
    between lines so those marks never touch the line above. */
 .quran-text {
   font-family: 'Amiri Quran', 'Amiri', serif;
-  line-height: 2.4;
+  line-height: 2.4 !important;
   word-spacing: 0.08em;
 }
 
